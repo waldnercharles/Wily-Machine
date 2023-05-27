@@ -1,0 +1,19 @@
+<Project Sdk="Godot.NET.Sdk/4.0.2">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <Content Include="Assets\DebugTileset.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Stages\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Debug\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="Debug\**" />
+    </ItemGroup>
+</Project>

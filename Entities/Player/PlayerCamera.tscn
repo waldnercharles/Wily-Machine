@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4hpwsx4pskvh"]
+
+[ext_resource type="Script" path="res://Entities/Player/PlayerCamera.cs" id="1_p2rag"]
+
+[node name="PlayerCamera" type="Camera2D"]
+process_mode = 3
+process_callback = 0
+script = ExtResource("1_p2rag")
