@@ -1,9 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://cvont2aym8cd8"]
+[gd_scene load_steps=29 format=3 uid="uid://b3j23e236qp27"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.cs" id="1_b2xr6"]
-[ext_resource type="Texture2D" uid="uid://dg0fv4rhpg0uy" path="res://Entities/Player/Assets/IdleShoot.png" id="2_4uiaw"]
+[ext_resource type="Texture2D" uid="uid://cq2pxkxwsa1r0" path="res://Entities/Player/Assets/Sprites/JumpShoot.png" id="2_ejnuj"]
 [ext_resource type="Script" path="res://Entities/Player/PlayerStateMachine.cs" id="2_fge8c"]
-[ext_resource type="Texture2D" uid="uid://c8ghbfter3oal" path="res://Entities/Player/Assets/Idle.png" id="2_ocvhw"]
 [ext_resource type="Script" path="res://Entities/Player/States/PlayerSpawnState.cs" id="3_gvesp"]
 [ext_resource type="Script" path="res://Entities/Player/States/PlayerIdleState.cs" id="4_u17kg"]
 [ext_resource type="Script" path="res://Entities/Player/States/PlayerMoveState.cs" id="5_pxept"]
@@ -13,10 +12,13 @@
 [ext_resource type="Script" path="res://Entities/Player/States/PlayerClimbShootState.cs" id="9_cc0e2"]
 [ext_resource type="Script" path="res://Entities/Player/States/PlayerSlideState.cs" id="10_2w6v8"]
 [ext_resource type="Script" path="res://Entities/Player/States/PlayerDeathState.cs" id="11_wnxdw"]
-[ext_resource type="Texture2D" uid="uid://bgm6frrsxsllr" path="res://Entities/Player/Assets/Jump.png" id="14_qxbnn"]
-[ext_resource type="Texture2D" uid="uid://cq2pxkxwsa1r0" path="res://Entities/Player/Assets/JumpShoot.png" id="15_homy5"]
-[ext_resource type="Texture2D" uid="uid://bgct2lbkk1p8k" path="res://Entities/Player/Assets/Run.png" id="16_eein0"]
+[ext_resource type="Texture2D" uid="uid://c8ghbfter3oal" path="res://Entities/Player/Assets/Sprites/Idle.png" id="13_chhpk"]
+[ext_resource type="Texture2D" uid="uid://dg0fv4rhpg0uy" path="res://Entities/Player/Assets/Sprites/IdleShoot.png" id="14_sd3wv"]
+[ext_resource type="Texture2D" uid="uid://bgm6frrsxsllr" path="res://Entities/Player/Assets/Sprites/Jump.png" id="15_0xe5i"]
+[ext_resource type="Texture2D" uid="uid://bgct2lbkk1p8k" path="res://Entities/Player/Assets/Sprites/Run.png" id="16_tk275"]
 [ext_resource type="FontFile" uid="uid://ckjjk2m3e5tks" path="res://Assets/m5x7.ttf" id="17_h847a"]
+[ext_resource type="Script" path="res://Entities/Player/Weapons/WeaponStateMachine.cs" id="18_ovfao"]
+[ext_resource type="Script" path="res://Entities/Player/Weapons/States/BusterState.cs" id="19_6xnec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pmkpp"]
 resource_local_to_scene = true
@@ -48,7 +50,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_ocvhw")]
+"values": [ExtResource("13_chhpk")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -88,7 +90,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_4uiaw")]
+"values": [ExtResource("14_sd3wv")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -128,7 +130,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("14_qxbnn")]
+"values": [ExtResource("15_0xe5i")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -145,7 +147,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_uqa4v"]
 resource_name = "JumpShoot"
-length = 0.16
+length = 0.24
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -168,7 +170,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("15_homy5")]
+"values": [ExtResource("2_ejnuj")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -209,7 +211,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("16_eein0")]
+"values": [ExtResource("16_tk275")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -230,38 +232,38 @@ length = 0.08
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [2]
+"values": [ExtResource("13_chhpk")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/path = NodePath("Sprite2D:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_ocvhw")]
+"values": [3]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/path = NodePath("Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
+"values": [2]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bqslr"]
@@ -281,18 +283,18 @@ outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "CollisionShape", "StateMachine", "AnimationPlayer")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Weapons", "CollisionShape", "StateMachine", "AnimationPlayer")]
 collision_layer = 2
 collision_mask = 65
 script = ExtResource("1_b2xr6")
 Sprite = NodePath("Sprite2D")
+Weapons = NodePath("Weapons")
 CollisionShape = NodePath("CollisionShape2D")
 StateMachine = NodePath("StateMachine")
 AnimationPlayer = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("16_eein0")
-hframes = 3
+texture = ExtResource("2_ejnuj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
@@ -338,6 +340,13 @@ libraries = {
 "": SubResource("AnimationLibrary_bqslr")
 }
 
+[node name="Weapons" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("18_ovfao")
+InitialState = NodePath("Buster")
+
+[node name="Buster" type="Node" parent="Weapons"]
+script = ExtResource("19_6xnec")
+
 [node name="Label" type="Label" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
@@ -350,6 +359,9 @@ offset_right = 100.0
 offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 0
+text = "Hello World"
 label_settings = SubResource("LabelSettings_32pru")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="AnimationFinished"]

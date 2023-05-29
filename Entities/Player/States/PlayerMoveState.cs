@@ -7,7 +7,7 @@ public partial class PlayerMoveState : PlayerOnGroundState
     [Export] public int TipToeFrameCountMax = 5;
     [Export] public int ShootFrameCountMax = 19;
 
-    [Export] public Vector2I BusterPosition = new Vector2I(17, 0);
+    [Export] public Vector2I WeaponPosition = new Vector2I(17, 0);
 
     private int m_FrameCount;
     private int m_ShootFrameCount;
@@ -20,7 +20,7 @@ public partial class PlayerMoveState : PlayerOnGroundState
         m_ShootFrameCount = ShootFrameCountMax;
         m_TipToeFrameCount = Player.IsStill ? TipToeFrameCountMax : 0;
 
-        Player.BusterPosition = BusterPosition;
+        Player.WeaponPosition = WeaponPosition;
     }
 
     public override void Exit()
@@ -92,11 +92,6 @@ public partial class PlayerMoveState : PlayerOnGroundState
         if (!Player.IsOnFloor())
         {
             StateMachine.ChangeState<PlayerJumpState>();
-        }
-
-        if (Player.ChargeLevel > 0 && Input.IsActionPressed(PlayerInputAction.Shoot))
-        {
-            // TODO: Shoot!
         }
     }
 }

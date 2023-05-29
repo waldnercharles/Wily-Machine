@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7wghk3w8fl7w"]
 
 [ext_resource type="TileSet" uid="uid://ca3rx3vvoeae3" path="res://Assets/DebugTileset.tres" id="1_8b4i8"]
-[ext_resource type="PackedScene" uid="uid://cvont2aym8cd8" path="res://Entities/Player/Player.tscn" id="2_7jsg3"]
+[ext_resource type="PackedScene" uid="uid://b3j23e236qp27" path="res://Entities/Player/Player.tscn" id="2_7jsg3"]
 [ext_resource type="PackedScene" uid="uid://bv6cifnjxnxvm" path="res://Stages/Core/Section.tscn" id="3_wgngl"]
 [ext_resource type="PackedScene" uid="uid://c4hpwsx4pskvh" path="res://Entities/Player/PlayerCamera.tscn" id="4_0vij7"]
 

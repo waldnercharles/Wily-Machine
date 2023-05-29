@@ -63,10 +63,5 @@ public partial class PlayerJumpState : PlayerState
             // TODO: Land Sound
             Player.StateMachine.ChangeState<PlayerMoveState>();
         }
-
-        if (Player.ChargeLevel > 0 && !Player.Input.IsActionPressed(PlayerInputAction.Shoot))
-        {
-            HandleCommand(PlayerCommand.Shoot);
-        }
     }
 }

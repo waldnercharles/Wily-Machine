@@ -80,4 +80,9 @@ public partial class StateMachine : Node
             EmitSignal(SignalName.StateChanged, State);
         }
     }
+
+    public virtual void AnimationFinished(StringName animationName)
+    {
+        State?.AnimationFinished(animationName);
+    }
 }

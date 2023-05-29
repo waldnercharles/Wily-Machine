@@ -4,13 +4,13 @@ namespace Spaghetti.Godot;
 
 public partial class PlayerClimbShootState : PlayerClimbState
 {
-    [Export] public Vector2 BusterPosition { get; set; } = new Vector2(17, -2);
+    [Export] public Vector2I WeaponPosition { get; set; } = new Vector2I(17, -2);
 
     public override void Enter<TState>(TState? previousState) where TState : class
     {
         Player.IsClimbing = true;
         // TODO: Play Climb Shoot Animation
-        // TODO: MegaBuster Position
+        Player.WeaponPosition = WeaponPosition;
         Player.Shoot();
     }
 

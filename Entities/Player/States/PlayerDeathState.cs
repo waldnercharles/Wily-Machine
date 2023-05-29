@@ -10,7 +10,6 @@ public partial class PlayerDeathState : PlayerState
     {
         Player.StateMachine.Enabled = false;
         Player.IsDead = true;
-        Player.BufferingCharge = false;
 
         // TODO: Dramatic death effects
     }

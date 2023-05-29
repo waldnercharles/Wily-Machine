@@ -4,12 +4,12 @@ namespace Spaghetti.Godot;
 
 public partial class PlayerJumpShootState : PlayerJumpState
 {
-    [Export] public Vector2 BusterPosition { get; set; } = new Vector2(17, -4);
+    [Export] public Vector2I WeaponPosition { get; set; } = new Vector2I(17, -4);
 
     public override void Enter<TState>(TState? previousState) where TState : class
     {
         Player.AnimationPlayer.Play(PlayerAnimation.JumpShoot);
-        // TODO: MegaBuster
+        Player.WeaponPosition = WeaponPosition;
 
         Player.Shoot();
     }
@@ -23,7 +23,8 @@ public partial class PlayerJumpShootState : PlayerJumpState
 
         if (command is PlayerCommand.Shoot)
         {
-            // TODO: Animation
+            Player.AnimationPlayer.Stop();
+            Player.AnimationPlayer.Play(PlayerAnimation.JumpShoot);
             Player.Shoot();
         }
 

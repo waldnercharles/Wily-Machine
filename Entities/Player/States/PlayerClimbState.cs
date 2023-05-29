@@ -76,10 +76,5 @@ public partial class PlayerClimbState : PlayerState
                 // TODO: Climb Idle Animation
             }
         }
-
-        if (Player.ChargeLevel > 0 && !Player.Input.IsActionPressed(PlayerInputAction.Shoot))
-        {
-            HandleCommand(PlayerCommand.Shoot);
-        }
     }
 }
