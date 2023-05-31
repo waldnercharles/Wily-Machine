@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -6,27 +5,27 @@ namespace Spaghetti.Godot;
 
 public partial class Ladder : StaticBody2D
 {
-    private const int TileSize = 16;
+    [Export] public int TileSize { get; set; } = 16;
 
     [Export] public CollisionShape2D LadderTopCollision { get; set; } = null!;
+
     [Export] public Area2D LadderArea { get; set; } = null!;
     [Export] public CollisionShape2D LadderCollision { get; set; } = null!;
 
-    private int m_SizeInTiles;
+    private int m_SizeInTiles = 3;
 
-    [Export] public int SizeInTiles
+    public int SizeInTiles
     {
         get => m_SizeInTiles;
         set
         {
             m_SizeInTiles = value;
 
-            var rectangleShape = LadderCollision.Shape as RectangleShape2D ??
-                                 throw new Exception(
-                                     "Ladder collision shape must be a RectangleShape2D");
+            var ladderCollisionShape = LadderCollision.Shape as RectangleShape2D;
+            Log.Assert(ladderCollisionShape != null);
 
-            rectangleShape.Size =
-                new Vector2(rectangleShape.Size.X, SizeInTiles * TileSize / 2f);
+            ladderCollisionShape.Size =
+                new Vector2(ladderCollisionShape.Size.X, SizeInTiles * TileSize);
 
             LadderCollision.Position =
                 new Vector2(LadderCollision.Position.X, SizeInTiles * TileSize / 2f - 1);
@@ -62,11 +61,14 @@ public partial class Ladder : StaticBody2D
 
         if (IsAboveLadder(player) && player.IsClimbing)
         {
-            player.MoveAndCollide(
-                new Vector2(0, -GetDistanceToLadderTop(player) - 1));
+            player.MoveAndCollide(new Vector2(0, -GetDistanceToLadderTop(player)));
         }
 
-        player.StopClimbing();
+        if (player.IsClimbing)
+        {
+            player.StateMachine.ChangeState<PlayerMoveState>();
+        }
+
         player.Ladder = null;
         SetCollidable(player, true);
         m_Players.Remove(player);
@@ -88,7 +90,8 @@ public partial class Ladder : StaticBody2D
                 var distanceToCenter = LadderCollision.GlobalPosition - player.GlobalPosition;
                 distanceToCenter.Y = 0;
 
-                player.StartClimbing(distanceToCenter);
+                player.MoveAndCollide(distanceToCenter);
+                player.StateMachine.ChangeState<PlayerClimbState>();
                 SetCollidable(player, false);
             }
         }
@@ -97,22 +100,25 @@ public partial class Ladder : StaticBody2D
     public bool IsExitingLadder(Player player)
     {
         return m_Players.Contains(player) &&
-               GetDistanceToLadderTop(player) < player.CollisionShape.Shape.GetRect().Size.Y + 2;
+               GetDistanceToLadderTop(player) <
+               player.CollisionShape.Shape.GetRect().Size.Y / 2f + 2;
+    }
+
+    public bool IsAboveLadder(Player player)
+    {
+        return GetDistanceToLadderTop(player) <= 0;
+    }
+
+    public float GetDistanceToLadderTop(Player player)
+    {
+        return player.CollisionShape.GlobalPosition.Y +
+               player.CollisionShape.Shape.GetRect().Size.Y / 2f -
+               LadderTopCollision.GlobalPosition.Y - LadderTopCollision.Shape.GetRect().Size.Y / 2f;
     }
 
     private void SetCollidable(Player player, bool value)
     {
-        player.SetCollisionMaskValue(6, value);
-    }
-
-    private bool IsAboveLadder(Player player)
-    {
-        return GetDistanceToLadderTop(player) < 0;
-    }
-
-    private float GetDistanceToLadderTop(Player player)
-    {
-        return player.CollisionShape.GlobalPosition.Y - LadderTopCollision.GlobalPosition.Y +
-               player.CollisionShape.Shape.GetRect().Size.Y;
+        const int ladderMaskValue = 7;
+        player.SetCollisionMaskValue(ladderMaskValue, value);
     }
 }

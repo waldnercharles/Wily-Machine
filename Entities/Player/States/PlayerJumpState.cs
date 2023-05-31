@@ -60,7 +60,7 @@ public partial class PlayerJumpState : PlayerState
 
         if (Player.IsOnFloor())
         {
-            // TODO: Land Sound
+            LandingSoundEffect.Play();
             Player.StateMachine.ChangeState<PlayerMoveState>();
         }
     }

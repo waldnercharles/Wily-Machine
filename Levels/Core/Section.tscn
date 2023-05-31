@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bv6cifnjxnxvm"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://Stages/Core/Section.cs" id="1_l38p3"]
+[ext_resource type="Script" path="res://Levels/Core/Section.cs" id="1_l38p3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7d4ma"]
 resource_local_to_scene = true

@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 
 namespace Spaghetti.Godot;
 
@@ -17,6 +17,8 @@ public partial class Player : CharacterBody2D
 
     public Ladder? Ladder { get; set; }
     public bool IsExitingLadder() => Ladder?.IsExitingLadder(this) ?? false;
+    public bool IsAboveLadder() => Ladder?.IsAboveLadder(this) ?? false;
+    public float GetDistanceToLadderTop() => Ladder?.GetDistanceToLadderTop(this) ?? 0f;
 
     [Export] public bool SlideEnabled { get; set; }
 
@@ -67,12 +69,6 @@ public partial class Player : CharacterBody2D
         }
     }
 
-    public void StartClimbing(Vector2 ladderDistance)
-    {
-        MoveAndCollide(ladderDistance);
-        StateMachine.ChangeState<PlayerClimbState>();
-    }
-
     public void StopClimbing()
     {
         if (IsClimbing)
@@ -84,6 +80,11 @@ public partial class Player : CharacterBody2D
     public void Shoot()
     {
         Weapons.State?.Shoot();
+    }
+
+    public void ToggleFacingDirection()
+    {
+        UpdateSpriteDirection(-FacingDirection);
     }
 
     public void UpdateSpriteDirection(Vector2 direction)

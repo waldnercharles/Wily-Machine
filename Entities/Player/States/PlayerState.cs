@@ -1,4 +1,5 @@
 ﻿using System;
+using Godot;
 
 namespace Spaghetti.Godot;
 

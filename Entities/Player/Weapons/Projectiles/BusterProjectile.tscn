@@ -1,17 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://c2xdwhwl4fst8"]
 
-[ext_resource type="Script" path="res://Entities/Player/Weapons/Projectiles/BusterProjectile.cs" id="1_i6fku"]
-[ext_resource type="Texture2D" uid="uid://di5k0m1nndmwo" path="res://Assets/Lemon.png" id="2_qg2ak"]
-[ext_resource type="AudioStream" uid="uid://bvh0ejaykaq4n" path="res://Entities/Player/Weapons/Assets/MegaBuster.wav" id="3_5ojaa"]
+[ext_resource type="Script" path="res://Entities/Player/Weapons/Projectiles/BusterProjectile.cs" id="1_s1ixg"]
+[ext_resource type="Texture2D" uid="uid://di5k0m1nndmwo" path="res://Assets/Lemon.png" id="2_ugu4e"]
+[ext_resource type="AudioStream" uid="uid://bvh0ejaykaq4n" path="res://Entities/Player/Weapons/Assets/MegaBuster.wav" id="3_85rsq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rwesx"]
 resource_local_to_scene = true
 radius = 4.0
 
-[node name="Projectile" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "CollisionShape", "ShootSoundEffect", "VisibleNotifier")]
+[node name="BusterProjectile" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "CollisionShape", "ShootSoundEffect", "VisibleNotifier") groups=["BusterProjectile"]]
 collision_layer = 0
 collision_mask = 4
-script = ExtResource("1_i6fku")
+script = ExtResource("1_s1ixg")
 Sprite = NodePath("Sprite2D")
 CollisionShape = NodePath("CollisionShape2D")
 ShootSoundEffect = NodePath("ShootSoundEffect")
@@ -19,7 +19,7 @@ VisibleNotifier = NodePath("VisibleOnScreenNotifier2D")
 ProjectileSpeed = 8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_qg2ak")
+texture = ExtResource("2_ugu4e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rwesx")
@@ -28,4 +28,4 @@ shape = SubResource("CircleShape2D_rwesx")
 rect = Rect2(-4, -3, 8, 6)
 
 [node name="ShootSoundEffect" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_5ojaa")
+stream = ExtResource("3_85rsq")

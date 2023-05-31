@@ -10,6 +10,8 @@ public partial class PlayerStateMachine : StateMachine
 
     public override void ChangeState<T>()
     {
+        Log.Trace($"{State?.GetType().Name ?? "NULL"} -> {typeof(T).Name}");
+
         if (Locked || !Enabled)
         {
             return;

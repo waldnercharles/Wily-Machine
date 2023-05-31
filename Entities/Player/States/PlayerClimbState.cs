@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 
 namespace Spaghetti.Godot;
 
@@ -6,17 +6,14 @@ public partial class PlayerClimbState : PlayerState
 {
     private Vector2 m_Direction;
 
-    private bool m_IsMovingAnimation;
-
     public override void Enter<TState>(TState? previousState) where TState : class
     {
-        // TODO: climb_idle
+        Player.AnimationPlayer.Play(PlayerAnimation.ClimbIdle);
         Player.IsClimbing = true;
     }
 
     public override void Exit()
     {
-        m_IsMovingAnimation = false;
         Player.IsClimbing = false;
     }
 
@@ -38,43 +35,40 @@ public partial class PlayerClimbState : PlayerState
 
     public override void Update(float delta)
     {
+        if (Player.Ladder == null)
+        {
+            Player.StateMachine.ChangeState<PlayerIdleState>();
+            return;
+        }
+
         m_Direction = Player.Input.GetInputDirection();
 
         if (m_Direction.Y != 0)
         {
-            if (Player.IsExitingLadder())
-            {
-                // TODO: Climb Exit Animation
-            }
-            else if (!m_IsMovingAnimation)
-            {
-                m_IsMovingAnimation = true;
-                // TODO: Climb Move Animation
-            }
+            Player.AnimationPlayer.Play(Player.IsExitingLadder()
+                ? PlayerAnimation.ClimbExit
+                : PlayerAnimation.ClimbMove);
 
-            if (m_Direction.Y > 0 &&
-                Player.TestMove(Player.Transform, new Vector2(0, m_Direction.Y) * delta))
+            Player.Velocity = new Vector2(0f, m_Direction.Y * Player.ClimbSpeed);
+            var collision = Player.MoveAndSlide();
+
+            if (m_Direction.Y > 0 && collision) // Moving Down
             {
                 Player.StateMachine.ChangeState<PlayerIdleState>();
             }
-            else
-            {
-                Player.Velocity = new Vector2(0f, m_Direction.Y * Player.ClimbSpeed);
-                Player.MoveAndSlide();
-            }
+
+            // if (m_Direction.Y < 0 && Player.IsAboveLadder()) // Moving Up
+            // {
+            //     Log.Debug(Player.IsAboveLadder().ToString());
+            //
+            //     Player.StateMachine.ChangeState<PlayerIdleState>();
+            // }
         }
         else
         {
-            m_IsMovingAnimation = false;
-
-            if (Player.IsExitingLadder())
-            {
-                // TODO: Climb Exit Animation
-            }
-            else
-            {
-                // TODO: Climb Idle Animation
-            }
+            Player.AnimationPlayer.Play(Player.IsExitingLadder()
+                ? PlayerAnimation.ClimbExit
+                : PlayerAnimation.ClimbIdle);
         }
     }
 }
