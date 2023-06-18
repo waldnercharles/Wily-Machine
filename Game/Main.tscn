@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" path="res://Main.cs" id="1_qqklj"]
 
-[node name="Main" type="Node" node_paths=PackedStringArray("ViewportContainer", "Viewport")]
+[node name="Main" type="Node"]
 script = ExtResource("1_qqklj")
-ViewportContainer = NodePath("SubViewportContainer")
-Viewport = NodePath("SubViewportContainer/SubViewport")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_right = 1280.0
