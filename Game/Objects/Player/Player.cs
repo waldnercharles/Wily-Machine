@@ -4,10 +4,10 @@ namespace Spaghetti;
 
 public sealed partial class Player : Actor
 {
-    [Export] public CollisionShape2D UprightCollisionShape { get; set; } = null!;
-    [Export] public CollisionShape2D SlideCollisionShape { get; set; } = null!;
+    [Node] public CollisionShape2D UprightCollisionShape { get; set; } = null!;
+    [Node] public CollisionShape2D SlideCollisionShape { get; set; } = null!;
 
-    [Export] public PlayerInputController Controller { get; set; } = null!;
+    [Node] public PlayerInputController Controller { get; set; } = null!;
     [Export] public Weapon Weapon { get; set; } = null!;
 
     [Export] public int Health { get; set; } = 1;
@@ -75,7 +75,7 @@ public sealed partial class Player : Actor
 
     public override void _Ready()
     {
-        base._Ready();
+        RegisterNodes();
 
         SetMovementState<IdleMovementState>();
         SetShootingState<NotShootingState>();

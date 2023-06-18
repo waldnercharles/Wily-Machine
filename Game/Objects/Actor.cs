@@ -13,11 +13,11 @@ public abstract partial class Actor : CharacterBody2D
     private const float MIN_Y_VELOCITY = -960f;
     private const float MAX_Y_VELOCITY = 420f;
 
-    [Export] public Sprite2D? Sprite { get; set; } = null!;
-    [Export] public AnimationPlayer SpriteAnimationPlayer { get; set; } = null!;
+    [Node] public Sprite2D? Sprite { get; set; }
+    [Node] public AnimationPlayer SpriteAnimationPlayer { get; set; } = null!;
 
-    [Export] public Sprite2D Effect { get; set; } = null!;
-    [Export] public AnimationPlayer EffectAnimationPlayer { get; set; } = null!;
+    [Node] public Sprite2D Effect { get; set; } = null!;
+    [Node] public AnimationPlayer EffectAnimationPlayer { get; set; } = null!;
 
     [Export] public CollisionShape2D CollisionShape { get; set; } = null!;
 
@@ -77,6 +77,7 @@ public abstract partial class Actor : CharacterBody2D
 
     public override void _Ready()
     {
+        RegisterNodes();
     }
 
     public override void _PhysicsProcess(double delta)

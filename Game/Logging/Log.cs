@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Godot;
 using JetBrains.Annotations;
+using Environment = System.Environment;
 
 namespace Spaghetti;
 
@@ -319,8 +320,9 @@ public static class Log
             message = string.Format(message, arg0, arg1, arg2);
 
             LogInternal(LogLevel.Assert, message, arg0, arg1, arg2, callerFilePath, callerLineNumber);
+            Environment.Exit(0);
 
-            throw new Exception(message);
+            throw new ApplicationException(message);
         }
     }
 

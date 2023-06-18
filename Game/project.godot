@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 ProjectSettingsInitializer="*res://ProjectSettingsInitializer.cs"
-SoundEffectPlayer="*res://Audio/SoundEffectPlayer.tscn"
 
 [custom]
 

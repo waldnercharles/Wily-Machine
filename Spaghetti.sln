@@ -2,6 +2,8 @@
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spaghetti", "Game\Spaghetti.csproj", "{B3F0F51C-3E88-4BF9-BFC0-E78048CFD52F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spaghetti.SourceGenerator", "Spaghetti.SourceGenerator\Spaghetti.SourceGenerator.csproj", "{1230B210-9939-4A79-9EA5-55E4CF4FDE08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -15,5 +17,11 @@ Global
 		{B3F0F51C-3E88-4BF9-BFC0-E78048CFD52F}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{B3F0F51C-3E88-4BF9-BFC0-E78048CFD52F}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{B3F0F51C-3E88-4BF9-BFC0-E78048CFD52F}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{1230B210-9939-4A79-9EA5-55E4CF4FDE08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1230B210-9939-4A79-9EA5-55E4CF4FDE08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1230B210-9939-4A79-9EA5-55E4CF4FDE08}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1230B210-9939-4A79-9EA5-55E4CF4FDE08}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{1230B210-9939-4A79-9EA5-55E4CF4FDE08}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{1230B210-9939-4A79-9EA5-55E4CF4FDE08}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
