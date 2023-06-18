@@ -26,10 +26,10 @@ public partial class PlayerCamera : Camera2D
             m_Section = value;
             m_Section.Active = true;
 
-            LimitLeft = m_Section.LimitLeft;
-            LimitRight = m_Section.LimitRight;
-            LimitTop = m_Section.LimitTop;
-            LimitBottom = m_Section.LimitBottom;
+            LimitLeft = m_Section.LimitLeft + (int)m_Section.Position.X;
+            LimitRight = m_Section.LimitRight + (int)m_Section.Position.X;
+            LimitTop = m_Section.LimitTop + (int)m_Section.Position.Y;
+            LimitBottom = m_Section.LimitBottom + (int)m_Section.Position.Y;
         }
     }
 

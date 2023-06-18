@@ -4,11 +4,15 @@ namespace Spaghetti;
 
 public sealed partial class Player : Actor
 {
+    [Node] public PlayerInputController Controller { get; set; } = null!;
+
     [Node] public CollisionShape2D UprightCollisionShape { get; set; } = null!;
     [Node] public CollisionShape2D SlideCollisionShape { get; set; } = null!;
 
-    [Node] public PlayerInputController Controller { get; set; } = null!;
     [Export] public Weapon Weapon { get; set; } = null!;
+
+    [Node] public AudioStreamPlayer2D LandSoundEffect { get; set; } = null!;
+    [Node] public AudioStreamPlayer2D HitSoundEffect { get; set; } = null!;
 
     [Export] public int Health { get; set; } = 1;
 
@@ -85,7 +89,7 @@ public sealed partial class Player : Actor
     {
         if (IsOnFloor())
         {
-            if (IsOnFloorTimestamp == 0)
+            if (IsAirborn && !IsStunned)
             {
                 OnLand();
             }
@@ -133,14 +137,14 @@ public sealed partial class Player : Actor
 
     public void OnLand()
     {
-        // SoundEffectPlayer.Play(SoundEffect.PlayerLand);
+        LandSoundEffect.Play();
     }
 
     public void OnHit(int damage)
     {
         if (IsVulnerable)
         {
-            // SoundEffectPlayer.Play(SoundEffect.PlayerHit);
+            HitSoundEffect.Play();
             Stun();
             Health -= damage;
 

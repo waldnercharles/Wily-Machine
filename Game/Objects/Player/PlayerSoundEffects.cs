@@ -1,8 +1,14 @@
-﻿using Godot;
+using Godot;
 
 namespace Spaghetti;
 
-public sealed partial class PlayerSoundEffects : Node
+public partial class PlayerSoundEffects : Node
 {
-    [Export] public AudioStreamPlayer2D? Land { get; set; }
+    [Node] public AudioStreamPlayer Land { get; set; } = null!;
+    [Node] public AudioStreamPlayer2D Hit { get; set; } = null!;
+
+    public override void _Ready()
+    {
+        RegisterNodes();
+    }
 }

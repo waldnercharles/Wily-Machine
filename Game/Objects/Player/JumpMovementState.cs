@@ -4,8 +4,6 @@ namespace Spaghetti;
 
 public sealed class JumpMovementState : MovementState
 {
-    public static int JumpCount = 0;
-
     public JumpMovementState(Player player) : base(player) { }
 
     public override void Enter(State? previousState)
@@ -64,22 +62,12 @@ public sealed class JumpMovementState : MovementState
         var isOnFloorBuffered = Time.GetTicksMsec() - Player.IsOnFloorTimestamp <
                                 FrameTime.ToMilliseconds(Player.JumpBufferFrames);
 
-        if (controller.ShouldJump() && isOnFloorBuffered)
+        if (controller.ShouldJump() && Player.IsFalling && isOnFloorBuffered)
         {
             Player.IsOnFloorTimestamp = 0;
             Player.IsFalling = false;
 
-
-            if (JumpCount > 10)
-            {
-                Player.OnHit(1);
-                JumpCount = 0;
-            }
-            else
-            {
-                Player.EnqueueMovementState<JumpMovementState>(); // Exit and re-enter
-                JumpCount++;
-            }
+            Player.EnqueueMovementState<JumpMovementState>(); // Exit and re-enter
 
             return StateChange.Next;
         }

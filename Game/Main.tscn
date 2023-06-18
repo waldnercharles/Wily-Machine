@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bhe36rjjjq6rx"]
 
-[ext_resource type="Script" path="res://Main.cs" id="1_qqklj"]
+[ext_resource type="Script" path="res://Main.cs" id="1_mh2dp"]
 
 [node name="Main" type="Node" node_paths=PackedStringArray("ViewportContainer", "Viewport")]
-script = ExtResource("1_qqklj")
+script = ExtResource("1_mh2dp")
 ViewportContainer = NodePath("SubViewportContainer")
 Viewport = NodePath("SubViewportContainer/SubViewport")
 
@@ -15,6 +15,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
 size = Vector2i(1280, 720)
 size_2d_override = Vector2i(400, 240)
 size_2d_override_stretch = true
