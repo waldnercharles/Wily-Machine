@@ -1,0 +1,62 @@
+<Project Sdk="Godot.NET.Sdk/4.1.0-dev.4">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>Spaghetti</AssemblyName>
+    <RootNamespace>Spaghetti</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Debug\**" />
+    <Compile Remove="Spaghetti.SourceGenerator\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Debug\**" />
+    <EmbeddedResource Remove="Spaghetti.SourceGenerator\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="m5x7.ttf" />
+    <Content Include="Map\Tilesets\Spritesheet\bgBasic.png" />
+    <Content Include="Objects\Player\Sounds\Appear.wav" />
+    <Content Include="Objects\Player\Sounds\Died.wav" />
+    <Content Include="Objects\Player\Sounds\GetHit.wav" />
+    <Content Include="Objects\Player\Sounds\Land.wav" />
+    <Content Include="Objects\Player\Sounds\Wilhelm.wav" />
+    <Content Include="Objects\Player\Sprites\Climb.png" />
+    <Content Include="Objects\Player\Sprites\ClimbMask.png" />
+    <Content Include="Objects\Player\Sprites\Hit.png" />
+    <Content Include="Objects\Player\Sprites\Idle.png" />
+    <Content Include="Objects\Player\Sprites\IdleMask.png" />
+    <Content Include="Objects\Player\Sprites\IdleShoot.png" />
+    <Content Include="Objects\Player\Sprites\IdleShootAlt.png" />
+    <Content Include="Objects\Player\Sprites\IdleShootAltMask.png" />
+    <Content Include="Objects\Player\Sprites\IdleShootMask.png" />
+    <Content Include="Objects\Player\Sprites\Jump.png" />
+    <Content Include="Objects\Player\Sprites\JumpMask.png" />
+    <Content Include="Objects\Player\Sprites\JumpShoot.png" />
+    <Content Include="Objects\Player\Sprites\JumpShootAlt.png" />
+    <Content Include="Objects\Player\Sprites\JumpShootAltMask.png" />
+    <Content Include="Objects\Player\Sprites\JumpShootMask.png" />
+    <Content Include="Objects\Player\Sprites\Run.png" />
+    <Content Include="Objects\Player\Sprites\RunMask.png" />
+    <Content Include="Objects\Player\Sprites\RunShoot.png" />
+    <Content Include="Objects\Player\Sprites\RunShootAlt.png" />
+    <Content Include="Objects\Player\Sprites\RunShootAltMask.png" />
+    <Content Include="Objects\Player\Sprites\RunShootMask.png" />
+    <Content Include="Objects\Player\Sprites\Slide.png" />
+    <Content Include="Objects\Player\Sprites\SlideDust.png" />
+    <Content Include="Objects\Player\Sprites\SlideMask.png" />
+    <Content Include="Objects\Player\Sprites\Spawn.png" />
+    <Content Include="Objects\Player\Sprites\SpawnMask.png" />
+    <Content Include="Objects\Player\Sprites\Stagger.png" />
+    <Content Include="Objects\Player\Sprites\StaggerMask.png" />
+    <Content Include="Objects\Weapons\Sounds\MegaBuster.wav" />
+    <Content Include="Objects\Weapons\Sounds\Reflect.wav" />
+    <Content Include="Objects\Weapons\Sprites\Lemon.png" />
+    <Content Include="Objects\Weapons\Sprites\MegaBusterProjectile.png" />
+  </ItemGroup>
+</Project>

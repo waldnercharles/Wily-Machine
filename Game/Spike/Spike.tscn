@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" uid="uid://3mbpr5li824m" path="res://Objects/DamageArea/DamageArea.tscn" id="1_lca8h"]
+
+[node name="DamageArea" instance=ExtResource("1_lca8h")]
+collision_mask = 2
+Damage = 10

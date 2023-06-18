@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbjkoh6x6htti"]
+
+[ext_resource type="Script" path="res://Objects/Weapons/Projectiles/BusterProjectile.cs" id="1_wxlqx"]
+[ext_resource type="Texture2D" uid="uid://crj0esi7lf36g" path="res://Objects/Weapons/Sprites/MegaBusterProjectile.png" id="2_mcrvu"]
+[ext_resource type="AudioStream" uid="uid://bvh0ejaykaq4n" path="res://Objects/Weapons/Sounds/MegaBuster.wav" id="3_gdifq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rwesx"]
+resource_local_to_scene = true
+radius = 4.0
+
+[node name="BusterProjectile" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "CollisionShape", "ShootSoundEffect", "VisibleNotifier") groups=["BusterProjectile"]]
+z_index = 4096
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_wxlqx")
+Sprite = NodePath("Sprite2D")
+CollisionShape = NodePath("CollisionShape2D")
+ShootSoundEffect = NodePath("ShootSoundEffect")
+VisibleNotifier = NodePath("VisibleOnScreenNotifier2D")
+ProjectileSpeed = 8.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mcrvu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rwesx")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-4, -3, 8, 6)
+
+[node name="ShootSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gdifq")

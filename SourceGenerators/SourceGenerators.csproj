@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Project Settings -->
+  <PropertyGroup>
+    <LangVersion>preview</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Firebelley.GodotUtilities.SourceGenerators</AssemblyName>
+    <RootNamespace>GodotUtilities.SourceGenerators</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Package Settings -->
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Authors>Cat-Lips</Authors>
+    <Description>
+      Source generators to accompany Firebelley.GodotUtilities.
+    </Description>
+    <RepositoryUrl>https://github.com/firebelley/GodotUtilities</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/firebelley/GodotUtilities</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>GodotUtilities</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>4.0.4</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" Link="Package\docs\README.md" />
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers\dotnet\cs" Link="Package\analyzers\dotnet\cs\$(AssemblyName).dll" />
+  </ItemGroup>
+
+  <!-- Scriban Settings -->
+  <ItemGroup>
+    <EmbeddedResource Include="**\*.sbncs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PackageScribanIncludeSource>true</PackageScribanIncludeSource>
+  </PropertyGroup>
+
+  <!-- Package References -->
+  <ItemGroup>
+    <PackageReference Include="IndexRange" Version="1.0.2" PrivateAssets="all" />
+    <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" PrivateAssets="all" />
+    <PackageReference Include="Scriban" Version="5.7.0" IncludeAssets="build" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>
