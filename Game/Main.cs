@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Spaghetti.Godot;
+namespace Spaghetti;
 
 public partial class Main : Node
 {

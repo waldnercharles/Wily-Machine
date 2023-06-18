@@ -1,8 +1,7 @@
-using System.Text;
 using Godot;
 using Godot.Collections;
 
-namespace Spaghetti.Godot;
+namespace Spaghetti;
 
 public static class ProjectSettingsPath
 {
