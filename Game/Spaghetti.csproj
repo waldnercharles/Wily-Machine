@@ -1,30 +1,31 @@
 <Project Sdk="Godot.NET.Sdk/4.1.0-dev.4">
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <EnableDynamicLoading>true</EnableDynamicLoading>
-    <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
-    <AssemblyName>Spaghetti</AssemblyName>
-    <RootNamespace>Spaghetti</RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Debug\**" />
-    <Compile Remove="SourceGenerators\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="Debug\**" />
-    <EmbeddedResource Remove="SourceGenerators\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.6.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Spaghetti.SourceGenerator\Spaghetti.SourceGenerator.csproj" OutputItemType="Analyzer" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="icon.svg" />
-    <Content Include="m5x7.ttf" />
-    <None Include="**/*.tscn" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <AssemblyName>Spaghetti</AssemblyName>
+        <RootNamespace>Spaghetti</RootNamespace>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <Optimize>true</Optimize>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'ExportDebug' ">
+        <Optimize>true</Optimize>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'ExportRelease' ">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+    <ItemGroup>
+        <!--        <PackageReference Include="GodotSharp.SourceGenerators" Version="2.0.0"/>-->
+        <PackageReference Include="GodotSharp.SourceGenerators" Version="2.1.0-230620-0840.Release"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2022.3.1"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="icon.svg"/>
+        <Content Include="m5x7.ttf"/>
+        <None Include="**/*.tscn"/>
+    </ItemGroup>
 </Project>
