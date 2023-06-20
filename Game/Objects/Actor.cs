@@ -2,7 +2,8 @@ using Godot;
 
 namespace Spaghetti;
 
-public abstract partial class Actor : CharacterBody2D
+[SceneTree]
+public partial class Actor : CharacterBody2D
 {
     private const float DEFAULT_AGE_MILLISECONDS = 0f;
     private const float DEFAULT_MAX_AGE_MILLISECONDS = 10f;
@@ -13,13 +14,13 @@ public abstract partial class Actor : CharacterBody2D
     private const float MIN_Y_VELOCITY = -960f;
     private const float MAX_Y_VELOCITY = 420f;
 
-    [Node] public Sprite2D? Sprite { get; set; }
-    [Node] public AnimationPlayer SpriteAnimationPlayer { get; set; } = null!;
+    public Sprite2D Sprite => _.Sprite;
+    public AnimationPlayer SpriteAnimationPlayer => _.SpriteAnimationPlayer;
 
-    [Node] public Sprite2D Effect { get; set; } = null!;
-    [Node] public AnimationPlayer EffectAnimationPlayer { get; set; } = null!;
+    public Sprite2D Effect => _.Effect;
+    public AnimationPlayer? EffectAnimationPlayer => _.EffectAnimationPlayer;
 
-    [Export] public CollisionShape2D CollisionShape { get; set; } = null!;
+    [Export] public CollisionShape2D? CollisionShape { get; set; }
 
     [Export] public Faction Faction { get; set; }
     [Export] public ActorDeathType DeathType { get; set; }
@@ -53,31 +54,23 @@ public abstract partial class Actor : CharacterBody2D
         {
             m_Direction = value;
 
-            if (Sprite != null)
+            Sprite.FlipH = Direction == Vector2.Left || Direction != Vector2.Right && Sprite.FlipH;
+
+            Sprite.Offset = new Vector2
+            (
+                Mathf.Abs(Sprite.Offset.X) * Direction.X,
+                Sprite.Offset.Y
+            );
+
+            if (CollisionShape != null)
             {
-                Sprite.FlipH = Direction == Vector2.Left || Direction != Vector2.Right && Sprite.FlipH;
-
-                Sprite.Offset = new Vector2
+                CollisionShape.Position = new Vector2
                 (
-                    Mathf.Abs(Sprite.Offset.X) * Direction.X,
-                    Sprite.Offset.Y
+                    Mathf.Abs(CollisionShape.Position.X) * Direction.X,
+                    CollisionShape.Position.Y
                 );
-
-                if (CollisionShape != null)
-                {
-                    CollisionShape.Position = new Vector2
-                    (
-                        Mathf.Abs(CollisionShape.Position.X) * Direction.X,
-                        CollisionShape.Position.Y
-                    );
-                }
             }
         }
-    }
-
-    public override void _Ready()
-    {
-        RegisterNodes();
     }
 
     public override void _PhysicsProcess(double delta)

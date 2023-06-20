@@ -2,19 +2,20 @@ using Godot;
 
 namespace Spaghetti;
 
+[SceneTree]
 public sealed partial class Player : Actor
 {
-    [Node] public PlayerInputController Controller { get; set; } = null!;
+    public PlayerInputController Controller => _.Controller;
 
-    [Node] public CollisionShape2D UprightCollisionShape { get; set; } = null!;
-    [Node] public CollisionShape2D SlideCollisionShape { get; set; } = null!;
+    public CollisionShape2D UprightCollisionShape => _.UprightCollisionShape;
+    public CollisionShape2D SlideCollisionShape => _.SlideCollisionShape;
 
-    [Export] public Weapon Weapon { get; set; } = null!;
 
-    [Node] public AudioStreamPlayer2D LandSoundEffect { get; set; } = null!;
-    [Node] public AudioStreamPlayer2D HitSoundEffect { get; set; } = null!;
+    public AudioStreamPlayer2D LandSoundEffect => _.LandSoundEffect;
+    public AudioStreamPlayer2D HitSoundEffect => _.HitSoundEffect;
 
     [Export] public int Health { get; set; } = 1;
+    [Export] public Weapon? Weapon { get; set; }
 
     public Ladder? Ladder { get; set; }
 
@@ -79,8 +80,6 @@ public sealed partial class Player : Actor
 
     public override void _Ready()
     {
-        RegisterNodes();
-
         SetMovementState<IdleMovementState>();
         SetShootingState<NotShootingState>();
     }
@@ -91,7 +90,7 @@ public sealed partial class Player : Actor
         {
             if (IsAirborn && !IsStunned)
             {
-                OnLand();
+                OnLanded();
             }
 
             IsOnFloorTimestamp = Time.GetTicksMsec();
@@ -117,7 +116,7 @@ public sealed partial class Player : Actor
 
     public override void Shoot()
     {
-        Weapon.Shoot();
+        Weapon?.Shoot();
     }
 
     public void StopShooting()
@@ -135,7 +134,7 @@ public sealed partial class Player : Actor
         return !IsAirborn || IsClimbing;
     }
 
-    public void OnLand()
+    public void OnLanded()
     {
         LandSoundEffect.Play();
     }

@@ -1,4 +1,3 @@
-using System;
 using Godot;
 
 namespace Spaghetti;
@@ -17,7 +16,6 @@ public abstract partial class Weapon : Node
     public override void _Ready()
     {
         Actor = Owner as Actor;
-
         Log.Assert(Actor != null);
 
         ProjectileGroup = $"{Owner.GetInstanceId().ToString()}.{Name}";

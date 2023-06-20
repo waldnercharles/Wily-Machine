@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsm2bfb47hd47"]
+
+[ext_resource type="Script" path="res://Objects/Actor.cs" id="1_hu7bq"]
+
+[node name="Actor" type="CharacterBody2D"]
+script = ExtResource("1_hu7bq")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="SpriteAnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Effect" type="Sprite2D" parent="."]
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,27 +1,22 @@
-[gd_scene load_steps=38 format=3 uid="uid://b3j23e236qp27"]
+[gd_scene load_steps=39 format=3 uid="uid://cuqvu38wfu6p6"]
 
-[ext_resource type="Script" path="res://Objects/Player/Player.cs" id="1_pdayj"]
-[ext_resource type="Script" path="res://Objects/Player/PlayerInputController.cs" id="2_ne0pe"]
-[ext_resource type="Texture2D" uid="uid://c8ghbfter3oal" path="res://Objects/Player/Sprites/Idle.png" id="3_gjs20"]
-[ext_resource type="Texture2D" uid="uid://cqpl88qhpcuqj" path="res://Objects/Player/Sprites/Hit.png" id="4_c0ji2"]
-[ext_resource type="Texture2D" uid="uid://i0edvqckmsnj" path="res://Objects/Player/Sprites/Climb.png" id="5_2jcgc"]
-[ext_resource type="Texture2D" uid="uid://dg0fv4rhpg0uy" path="res://Objects/Player/Sprites/IdleShoot.png" id="6_c3rb1"]
-[ext_resource type="Texture2D" uid="uid://bgm6frrsxsllr" path="res://Objects/Player/Sprites/Jump.png" id="7_8ti54"]
-[ext_resource type="Texture2D" uid="uid://cq2pxkxwsa1r0" path="res://Objects/Player/Sprites/JumpShoot.png" id="8_jkewm"]
-[ext_resource type="Texture2D" uid="uid://bgct2lbkk1p8k" path="res://Objects/Player/Sprites/Run.png" id="9_cj77t"]
-[ext_resource type="Texture2D" uid="uid://chqht872dm1mj" path="res://Objects/Player/Sprites/RunShoot.png" id="10_ic6c3"]
-[ext_resource type="Texture2D" uid="uid://btpyulqaneh3p" path="res://Objects/Player/Sprites/Slide.png" id="11_2rc3d"]
-[ext_resource type="Texture2D" uid="uid://cr6wr17aytirf" path="res://Objects/Player/Sprites/Stagger.png" id="12_amxhj"]
-[ext_resource type="Script" path="res://Objects/Weapons/Buster.cs" id="13_1yyy0"]
-[ext_resource type="PackedScene" uid="uid://dbjkoh6x6htti" path="res://Objects/Weapons/Projectiles/BusterProjectile.tscn" id="14_fu55j"]
-[ext_resource type="AudioStream" uid="uid://b2kn0gxwmdihq" path="res://Objects/Player/Sounds/Land.wav" id="15_w3tj1"]
-[ext_resource type="AudioStream" uid="uid://cil8bd4kbo282" path="res://Objects/Player/Sounds/GetHit.wav" id="16_slcwb"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3d5jf"]
-size = Vector2(11, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ks676"]
-size = Vector2(17, 11)
+[ext_resource type="PackedScene" uid="uid://dsm2bfb47hd47" path="res://Objects/Actor.tscn" id="1_lw3h8"]
+[ext_resource type="Script" path="res://Objects/Player/Player.cs" id="2_8vivm"]
+[ext_resource type="Script" path="res://Objects/Player/PlayerInputController.cs" id="3_y34qb"]
+[ext_resource type="Texture2D" uid="uid://c8ghbfter3oal" path="res://Objects/Player/Sprites/Idle.png" id="4_d47nj"]
+[ext_resource type="Texture2D" uid="uid://i0edvqckmsnj" path="res://Objects/Player/Sprites/Climb.png" id="5_ntjnc"]
+[ext_resource type="Texture2D" uid="uid://dg0fv4rhpg0uy" path="res://Objects/Player/Sprites/IdleShoot.png" id="6_6lgji"]
+[ext_resource type="Texture2D" uid="uid://bgm6frrsxsllr" path="res://Objects/Player/Sprites/Jump.png" id="7_6jepy"]
+[ext_resource type="Texture2D" uid="uid://cq2pxkxwsa1r0" path="res://Objects/Player/Sprites/JumpShoot.png" id="8_856vw"]
+[ext_resource type="Texture2D" uid="uid://bgct2lbkk1p8k" path="res://Objects/Player/Sprites/Run.png" id="9_advug"]
+[ext_resource type="Texture2D" uid="uid://chqht872dm1mj" path="res://Objects/Player/Sprites/RunShoot.png" id="10_52pm2"]
+[ext_resource type="Texture2D" uid="uid://btpyulqaneh3p" path="res://Objects/Player/Sprites/Slide.png" id="11_gle46"]
+[ext_resource type="Texture2D" uid="uid://cr6wr17aytirf" path="res://Objects/Player/Sprites/Stagger.png" id="12_4peld"]
+[ext_resource type="Texture2D" uid="uid://cqpl88qhpcuqj" path="res://Objects/Player/Sprites/Hit.png" id="13_518r3"]
+[ext_resource type="Script" path="res://Objects/Weapons/Buster.cs" id="14_52vjp"]
+[ext_resource type="PackedScene" uid="uid://dbjkoh6x6htti" path="res://Objects/Weapons/Projectiles/BusterProjectile.tscn" id="15_f344t"]
+[ext_resource type="AudioStream" uid="uid://b2kn0gxwmdihq" path="res://Objects/Player/Sounds/Land.wav" id="16_bbxfa"]
+[ext_resource type="AudioStream" uid="uid://cil8bd4kbo282" path="res://Objects/Player/Sounds/GetHit.wav" id="17_cawsu"]
 
 [sub_resource type="Animation" id="Animation_boga3"]
 resource_name = "ClimbExit"
@@ -37,7 +32,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_2jcgc")]
+"values": [ExtResource("5_ntjnc")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -90,7 +85,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_2jcgc")]
+"values": [ExtResource("5_ntjnc")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -143,7 +138,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_2jcgc")]
+"values": [ExtResource("5_ntjnc")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -212,7 +207,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_2jcgc")]
+"values": [ExtResource("5_ntjnc")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -277,7 +272,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_gjs20")]
+"values": [ExtResource("4_d47nj")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -329,7 +324,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_c3rb1")]
+"values": [ExtResource("6_6lgji")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -393,7 +388,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_8ti54")]
+"values": [ExtResource("7_6jepy")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -445,7 +440,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_jkewm")]
+"values": [ExtResource("8_856vw")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -510,7 +505,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("9_cj77t")]
+"values": [ExtResource("9_advug")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -563,7 +558,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("10_ic6c3")]
+"values": [ExtResource("10_52pm2")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -626,7 +621,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_gjs20")]
+"values": [ExtResource("4_d47nj")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -679,7 +674,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("11_2rc3d")]
+"values": [ExtResource("11_gle46")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -732,7 +727,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("12_amxhj")]
+"values": [ExtResource("12_4peld")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -784,7 +779,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_gjs20")]
+"values": [ExtResource("4_d47nj")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -911,7 +906,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_c0ji2")]
+"values": [ExtResource("13_518r3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -969,63 +964,79 @@ _data = {
 "Stun": SubResource("Animation_377ig")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Weapon", "CollisionShape")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3d5jf"]
+size = Vector2(11, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ks676"]
+size = Vector2(17, 11)
+
+[node name="Actor" node_paths=PackedStringArray("Weapon", "CollisionShape") instance=ExtResource("1_lw3h8")]
 z_index = 2048
 collision_layer = 2
 collision_mask = 65
 floor_constant_speed = true
 floor_snap_length = 4.0
-script = ExtResource("1_pdayj")
-Weapon = NodePath("Weapons/Buster")
+script = ExtResource("2_8vivm")
 Health = 28
+Weapon = NodePath("Weapons/Buster")
+JumpBufferFrames = 6
+TipToeFrames = 7
+SlideFrames = 26
+StunFrames = 32
+StunInvincibilityFrames = 122
+WalkVelocity = Vector2(78, 0)
+TipToeVelocity = Vector2(60, 0)
+ClimbVelocity = Vector2(78, 78)
+JumpVelocity = Vector2(0, -315)
+SlideVelocity = Vector2(150, 0)
+KnockbackVelocity = Vector2(-30, 0)
 CollisionShape = NodePath("UprightCollisionShape")
 Faction = 1
 DeathType = 4
 IsAffectedByGravity = true
-WeaponOffset = Vector2(16, 0)
 
-[node name="Controller" type="Node" parent="."]
-script = ExtResource("2_ne0pe")
+[node name="Controller" type="Node" parent="." index="0"]
+script = ExtResource("3_y34qb")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("3_gjs20")
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource("4_d47nj")
 hframes = 3
 
-[node name="Effect" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("4_c0ji2")
-
-[node name="UprightCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_3d5jf")
-
-[node name="SlideCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5.5)
-shape = SubResource("RectangleShape2D_ks676")
-disabled = true
-
-[node name="SpriteAnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="SpriteAnimationPlayer" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_bqslr")
 }
 
-[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Effect" parent="." index="3"]
+visible = false
+
+[node name="EffectAnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_cqyss")
 }
 
-[node name="Weapons" type="Node" parent="."]
+[node name="UprightCollisionShape" type="CollisionShape2D" parent="." index="5"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_3d5jf")
 
-[node name="Buster" type="Node" parent="Weapons"]
-script = ExtResource("13_1yyy0")
-Projectile = ExtResource("14_fu55j")
+[node name="SlideCollisionShape" type="CollisionShape2D" parent="." index="6"]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_ks676")
+disabled = true
 
-[node name="LandSoundEffect" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("15_w3tj1")
+[node name="Weapons" type="Node" parent="." index="7"]
+
+[node name="Buster" type="Node" parent="Weapons" index="0"]
+script = ExtResource("14_52vjp")
+Projectile = ExtResource("15_f344t")
+MaxProjectiles = 3
+
+[node name="LandSoundEffect" type="AudioStreamPlayer2D" parent="." index="8"]
+stream = ExtResource("16_bbxfa")
 max_distance = 800.0
 max_polyphony = 2
 area_mask = 0
 
-[node name="HitSoundEffect" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("16_slcwb")
+[node name="HitSoundEffect" type="AudioStreamPlayer2D" parent="." index="9"]
+stream = ExtResource("17_cawsu")
 max_distance = 800.0

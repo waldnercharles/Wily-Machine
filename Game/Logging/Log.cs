@@ -320,9 +320,8 @@ public static class Log
             message = string.Format(message, arg0, arg1, arg2);
 
             LogInternal(LogLevel.Assert, message, arg0, arg1, arg2, callerFilePath, callerLineNumber);
-            Environment.Exit(0);
-
-            throw new ApplicationException(message);
+            Environment.Exit(1);
+            throw new Exception(message);
         }
     }
 

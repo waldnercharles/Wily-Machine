@@ -1,13 +1,14 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://bisprgvjvvnng"]
 
-[ext_resource type="Script" path="res://Objects/DamageArea/DamageArea.cs" id="1_6lkf2"]
+[ext_resource type="Script" path="res://Objects/DamageArea/DamageArea.cs" id="1_k2rcq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ql187"]
+resource_local_to_scene = true
 size = Vector2(16, 16)
 
 [node name="DamageArea" type="StaticBody2D"]
 collision_mask = 6
-script = ExtResource("1_6lkf2")
+script = ExtResource("1_k2rcq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ql187")

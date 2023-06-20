@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://bxe685bxy6b8w"]
 
-[ext_resource type="Script" path="res://Objects/Ladder/Ladder.cs" id="1_l84w3"]
+[ext_resource type="Script" path="res://Objects/Ladder/Ladder.cs" id="1_uohms"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_3plom"]
 a = Vector2(-8, 0)
@@ -10,22 +10,20 @@ b = Vector2(8, 0)
 resource_local_to_scene = true
 size = Vector2(2, 48)
 
-[node name="Ladder" type="StaticBody2D" node_paths=PackedStringArray("LadderTopCollision", "LadderArea", "CollisionShape")]
+[node name="Ladder" type="StaticBody2D"]
 collision_layer = 64
 collision_mask = 6
-script = ExtResource("1_l84w3")
-LadderTopCollision = NodePath("TopCollisionShape")
-LadderArea = NodePath("LadderBody")
-CollisionShape = NodePath("LadderBody/LadderCollisionShape")
+script = ExtResource("1_uohms")
 
 [node name="TopCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("SegmentShape2D_3plom")
 one_way_collision = true
 
-[node name="LadderBody" type="Area2D" parent="."]
+[node name="Area" type="Area2D" parent="."]
+position = Vector2(0, -1)
 collision_layer = 64
 collision_mask = 6
 
-[node name="LadderCollisionShape" type="CollisionShape2D" parent="LadderBody"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
 position = Vector2(0, 24)
 shape = SubResource("RectangleShape2D_8tonf")

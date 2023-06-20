@@ -2,11 +2,11 @@ using Godot;
 
 namespace Spaghetti;
 
-[Tool]
+[Tool] [SceneTree]
 public partial class Section : Node2D
 {
-    [Export] public Area2D? Area2D { get; set; }
-    [Export] public CollisionShape2D? Area2D_CollisionShape2D { get; set; }
+    public Area2D Area => _.Area;
+    public CollisionShape2D CollisionShape => _.Area.CollisionShape2D;
 
     [Export(PropertyHint.Range, "400,65536,")]
     public int Width
@@ -54,14 +54,14 @@ public partial class Section : Node2D
             return;
         }
 
-        var rect = Area2D_CollisionShape2D!.Shape.GetRect();
+        var rect = CollisionShape!.Shape.GetRect();
         LimitLeft = (int)rect.Position.X;
         LimitTop = (int)rect.Position.Y;
         LimitRight = (int)rect.End.X;
         LimitBottom = (int)rect.End.Y;
 
-        Area2D!.BodyEntered += BodyEntered;
-        Area2D.BodyExited += BodyExited;
+        Area!.BodyEntered += BodyEntered;
+        Area.BodyExited += BodyExited;
 
         CallDeferred(nameof(FindPlayerCamera));
     }
@@ -123,7 +123,7 @@ public partial class Section : Node2D
             QueueRedraw();
         }
 
-        if (Area2D_CollisionShape2D?.Shape is RectangleShape2D rectangleShape2D)
+        if (CollisionShape?.Shape is RectangleShape2D rectangleShape2D)
         {
             rectangleShape2D.Size = new Vector2(Width, Height);
         }

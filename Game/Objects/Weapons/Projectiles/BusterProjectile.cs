@@ -2,35 +2,45 @@ using Godot;
 
 namespace Spaghetti;
 
+[SceneTree]
+public abstract partial class Projectile : CharacterBody2D
+{
+    [Export] public int Damage { get; set; } = 1;
+    [Export] public float ProjectileSpeed = 5f * 60f;
+    
+    public Vector2 Direction { get; set; }
+    
+    public VisibleOnScreenNotifier2D VisibleNotifier => _.VisibleOnScreenNotifier;
+}
+
+[SceneTree]
 public partial class BusterProjectile : CharacterBody2D
 {
-    [Export] public Sprite2D Sprite { get; set; } = null!;
-    [Export] public CollisionShape2D CollisionShape { get; set; } = null!;
-    [Export] public AudioStreamPlayer ShootSoundEffect { get; set; } = null!;
-    [Export] public VisibleOnScreenNotifier2D VisibleNotifier { get; set; } = null!;
+    public Sprite2D Sprite => _.Sprite;
+    public CollisionShape2D CollisionShape => _.CollisionShape;
+    public AudioStreamPlayer ShootSoundEffect => _.ShootSoundEffect;
+    public VisibleOnScreenNotifier2D VisibleNotifier => _.VisibleOnScreenNotifier;
 
     [Export] public int Damage { get; set; } = 1;
-    [Export] public float ProjectileSpeed = 10f;
+    [Export] public float ProjectileSpeed = 5f * 60f;
 
     public Vector2 Direction { get; set; }
 
     public override void _Ready()
     {
-        Log.Assert(VisibleNotifier != null);
         VisibleNotifier.ScreenExited += ScreenExited;
 
         ShootSoundEffect.Play();
 
         if (Direction.X < 0)
         {
-            Log.Assert(Sprite != null);
             Sprite.FlipH = true;
         }
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        MoveAndCollide(Direction.Normalized() * ProjectileSpeed);
+        MoveAndCollide(Direction.Normalized() * ProjectileSpeed * (float)delta);
     }
 
     public void ScreenExited()

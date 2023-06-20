@@ -3,14 +3,15 @@ using Godot;
 
 namespace Spaghetti;
 
+[SceneTree]
 public partial class Ladder : StaticBody2D
 {
+    public CollisionShape2D TopCollisionShape => _.TopCollisionShape;
+
+    public Area2D Area => _.Area;
+    public CollisionShape2D CollisionShape => _.Area.CollisionShape2D;
+
     [Export] public int TileSize { get; set; } = 16;
-
-    [Export] public CollisionShape2D LadderTopCollision { get; set; } = null!;
-
-    [Export] public Area2D LadderArea { get; set; } = null!;
-    [Export] public CollisionShape2D CollisionShape { get; set; } = null!;
 
     private int m_SizeInTiles = 1;
 
@@ -37,8 +38,8 @@ public partial class Ladder : StaticBody2D
     public override void _Ready()
     {
         SetPhysicsProcess(false);
-        LadderArea.BodyEntered += OnBodyEntered;
-        LadderArea.BodyExited += OnBodyExited;
+        Area.BodyEntered += OnBodyEntered;
+        Area.BodyExited += OnBodyExited;
     }
 
     private void OnBodyEntered(Node2D body)
@@ -81,23 +82,21 @@ public partial class Ladder : StaticBody2D
 
             var controller = player.Controller;
 
-            if (player.CollisionShape == null)
+            if (player.CollisionShape != null)
             {
-                continue;
-            }
+                var playerFeet = player.CollisionShape.GlobalPosition.Y +
+                                 player.CollisionShape.Shape.GetRect().End.Y;
 
-            var playerFeet = player.CollisionShape.GlobalPosition.Y +
-                             player.CollisionShape.Shape.GetRect().End.Y;
+                var ladderTop = TopCollisionShape.GlobalPosition.Y +
+                                TopCollisionShape.Shape.GetRect().Position.Y;
 
-            var ladderTop = LadderTopCollision.GlobalPosition.Y +
-                            LadderTopCollision.Shape.GetRect().Position.Y;
+                var distanceToLadderTop = playerFeet - ladderTop;
+                var isAboveLadder = distanceToLadderTop <= 0;
 
-            var distanceToLadderTop = playerFeet - ladderTop;
-            var isAboveLadder = distanceToLadderTop <= 0;
-
-            if (controller.ShouldMoveUp() && !isAboveLadder || controller.ShouldMoveDown() && isAboveLadder)
-            {
-                player.SetMovementState<ClimbMovementState>();
+                if (controller.ShouldMoveUp() && !isAboveLadder || controller.ShouldMoveDown() && isAboveLadder)
+                {
+                    player.SetMovementState<ClimbMovementState>();
+                }
             }
         }
     }

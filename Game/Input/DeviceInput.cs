@@ -195,7 +195,7 @@ public partial class DeviceInput : Node
         if (device == Device)
         {
             IsDeviceConnected = connected;
-            EmitSignal(DeviceInput.SignalName.ConnectionChanged!, connected);
+            EmitSignal(DeviceInput.SignalName.ConnectionChanged, connected);
         }
     }
 }

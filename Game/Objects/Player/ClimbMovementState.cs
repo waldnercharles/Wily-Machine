@@ -85,8 +85,8 @@ public sealed class ClimbMovementState : MovementState
         var playerFeet = Player.CollisionShape.GlobalPosition.Y +
                          Player.CollisionShape.Shape.GetRect().End.Y;
 
-        var ladderTop = Player.Ladder.LadderTopCollision.GlobalPosition.Y +
-                        Player.Ladder.LadderTopCollision.Shape.GetRect().Position.Y;
+        var ladderTop = Player.Ladder.TopCollisionShape.GlobalPosition.Y +
+                        Player.Ladder.TopCollisionShape.Shape.GetRect().Position.Y;
 
         var distanceToLadderTop = playerFeet - ladderTop;
 
