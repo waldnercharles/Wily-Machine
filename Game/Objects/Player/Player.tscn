@@ -994,6 +994,7 @@ CollisionShape = NodePath("UprightCollisionShape")
 Faction = 1
 DeathType = 4
 IsAffectedByGravity = true
+WeaponOffset = Vector2(16, -0.666667)
 
 [node name="Controller" type="Node" parent="." index="0"]
 script = ExtResource("3_y34qb")
@@ -1040,3 +1041,6 @@ area_mask = 0
 [node name="HitSoundEffect" type="AudioStreamPlayer2D" parent="." index="9"]
 stream = ExtResource("17_cawsu")
 max_distance = 800.0
+
+[node name="Marker2D" type="Marker2D" parent="." index="10"]
+position = Vector2(31, -2)

@@ -10,7 +10,6 @@ public sealed partial class Player : Actor
     public CollisionShape2D UprightCollisionShape => _.UprightCollisionShape;
     public CollisionShape2D SlideCollisionShape => _.SlideCollisionShape;
 
-
     public AudioStreamPlayer2D LandSoundEffect => _.LandSoundEffect;
     public AudioStreamPlayer2D HitSoundEffect => _.HitSoundEffect;
 
@@ -41,6 +40,8 @@ public sealed partial class Player : Actor
     public bool IsBlinking => IsInvincible;
 
     public bool IsVulnerable => !IsInvincible && !IsStunned;
+
+    public bool IsDead;
 
     [Export] public int JumpBufferFrames { get; set; } = 6;
     public ulong IsOnFloorTimestamp { get; set; }

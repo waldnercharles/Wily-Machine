@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Godot;
 
 namespace Spaghetti;
 
@@ -28,16 +27,6 @@ public class StateMachine
 
     public State? NextState { get; private set; }
     public State? State { get; private set; }
-
-    public void HandleInput(InputEvent @event)
-    {
-        if (!Enabled)
-        {
-            return;
-        }
-
-        State?.HandleInput(@event);
-    }
 
     public void Update(double delta)
     {

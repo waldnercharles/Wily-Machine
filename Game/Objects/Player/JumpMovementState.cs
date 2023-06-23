@@ -14,7 +14,7 @@ public sealed class JumpMovementState : MovementState
 
         if (controller.ShouldJump() && !Player.IsFalling)
         {
-            Jump();
+            Jump(previousState is ClimbMovementState);
         }
         else if (!Player.IsOnFloor())
         {
@@ -92,13 +92,13 @@ public sealed class JumpMovementState : MovementState
         return StateChange.None;
     }
 
-    private void Jump()
+    private void Jump(bool wasClimbing = false)
     {
         Player.IsOnFloorTimestamp = 0;
         Player.Controller.ResetJumpBuffer();
         var velocity = Player.Velocity;
 
-        if (Player.IsClimbing)
+        if (Player.IsClimbing || wasClimbing)
         {
             Player.IsClimbing = false;
             velocity.Y = 0f; // TODO: Re-evaluate? Should we jump at JumpVelocity / 2f?

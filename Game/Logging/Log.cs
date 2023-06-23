@@ -268,8 +268,7 @@ public static class Log
 
     [AssertionMethod]
     public static bool ErrorIf(
-        [DoesNotReturnIf(true)] [AssertionCondition(AssertionConditionType.IS_TRUE)]
-        bool condition,
+        [DoesNotReturnIf(true)] [AssertionCondition(AssertionConditionType.IS_TRUE)] bool condition,
         string message,
         object? arg0 = null,
         object? arg1 = null,

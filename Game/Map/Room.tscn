@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfl561qr60j55"]
+
+[ext_resource type="Script" path="res://Map/Room.cs" id="1_harry"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwjj3"]
+resource_local_to_scene = true
+size = Vector2(400, 240)
+
+[node name="Room" type="TileMap"]
+y_sort_enabled = true
+format = 2
+script = ExtResource("1_harry")
+
+[node name="DebugRect" type="ReferenceRect" parent="."]
+visible = false
+top_level = true
+offset_left = -192.0
+offset_top = -112.0
+offset_right = 208.0
+offset_bottom = 128.0
+border_width = 3.0
+
+[node name="Area" type="Area2D" parent="."]
+position = Vector2(8, 8)
+collision_layer = 128
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+shape = SubResource("RectangleShape2D_qwjj3")
