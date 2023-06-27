@@ -34,6 +34,7 @@ public partial class Main : Node
         SubViewport.Snap2DTransformsToPixel = true;
 
         SubViewport.CanvasItemDefaultTextureFilter = Godot.Viewport.DefaultCanvasItemTextureFilter.Nearest;
+        AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), true);
 
         SubViewport.AudioListenerEnable2D = true;
 

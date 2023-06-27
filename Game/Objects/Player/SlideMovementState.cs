@@ -14,7 +14,7 @@ public sealed class SlideMovementState : MovementState
         Player.SlideCollisionShape.Disabled = false;
 
         Player.HurtboxUprightCollisionShape.Disabled = true;
-        Player.HurtboxSlideCollisionShape.Disabled = true;
+        Player.HurtboxSlideCollisionShape.Disabled = false;
 
         Player.CurrentCollisionShape = Player.SlideCollisionShape;
 
