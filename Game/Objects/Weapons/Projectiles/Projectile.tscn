@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://mpu6py3ngmbb"]
+
+[ext_resource type="Script" path="res://Objects/Weapons/Projectiles/Projectile.cs" id="1_3oqo4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lt78c"]
+size = Vector2(8, 8)
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_3oqo4")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = 4096
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lt78c")
+
+[node name="VisibleOnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-8, -8, 16, 16)

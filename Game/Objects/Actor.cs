@@ -3,7 +3,7 @@ using Godot;
 namespace Spaghetti;
 
 [SceneTree]
-public partial class Actor : CharacterBody2D
+public partial class Actor : CharacterBody2D, IFactionComponent
 {
     private const float DEFAULT_AGE_MILLISECONDS = 0f;
     private const float DEFAULT_MAX_AGE_MILLISECONDS = 10f;
@@ -18,9 +18,10 @@ public partial class Actor : CharacterBody2D
     public AnimationPlayer SpriteAnimationPlayer => _.SpriteAnimationPlayer;
 
     public Sprite2D Effect => _.Effect;
-    public AnimationPlayer? EffectAnimationPlayer => _.EffectAnimationPlayer;
+    public AnimationPlayer EffectAnimationPlayer => _.EffectAnimationPlayer;
 
-    [Export] public CollisionShape2D? CollisionShape { get; set; }
+    [Export] public PackedScene? Explosion { get; set; }
+    [Export] public CollisionShape2D? CurrentCollisionShape { get; set; }
 
     [Export] public Faction Faction { get; set; }
     [Export] public ActorDeathType DeathType { get; set; }
@@ -33,8 +34,11 @@ public partial class Actor : CharacterBody2D
     public bool IsAgeless { get; set; }
     public bool IsPhasing { get; set; }
 
+    public bool IsDead { get; set; }
+
     [Export] public bool IsAffectedByGravity { get; set; }
     [Export] public float Gravity { get; set; } = 0.25f * 60;
+
     public float GravityDirection => -UpDirection.Y;
 
     public float Age { get; protected set; }
@@ -62,12 +66,12 @@ public partial class Actor : CharacterBody2D
                 Sprite.Offset.Y
             );
 
-            if (CollisionShape != null)
+            if (CurrentCollisionShape != null)
             {
-                CollisionShape.Position = new Vector2
+                CurrentCollisionShape.Position = new Vector2
                 (
-                    Mathf.Abs(CollisionShape.Position.X) * Direction.X,
-                    CollisionShape.Position.Y
+                    Mathf.Abs(CurrentCollisionShape.Position.X) * Direction.X,
+                    CurrentCollisionShape.Position.Y
                 );
             }
         }
@@ -121,25 +125,21 @@ public partial class Actor : CharacterBody2D
 
     public void ChangeSpriteAnimation(string animationName)
     {
-        Log.Assert(SpriteAnimationPlayer != null);
         SpriteAnimationPlayer.Play(animationName);
     }
 
     public void PauseSpriteAnimation()
     {
-        Log.Assert(SpriteAnimationPlayer != null);
         SpriteAnimationPlayer.Pause();
     }
 
     public void ChangeEffectAnimation(string animationName)
     {
-        Log.Assert(EffectAnimationPlayer != null);
         EffectAnimationPlayer.Play(animationName);
     }
 
     public void PauseEffectAnimation()
     {
-        Log.Assert(EffectAnimationPlayer != null);
         EffectAnimationPlayer.Pause();
     }
 }

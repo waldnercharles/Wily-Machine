@@ -3,33 +3,15 @@ using Godot;
 namespace Spaghetti;
 
 [SceneTree]
-public abstract partial class Projectile : CharacterBody2D
+public partial class BusterProjectile : Projectile
 {
-    [Export] public int Damage { get; set; } = 1;
-    [Export] public float ProjectileSpeed = 5f * 60f;
-    
-    public Vector2 Direction { get; set; }
-    
-    public VisibleOnScreenNotifier2D VisibleNotifier => _.VisibleOnScreenNotifier;
-}
-
-[SceneTree]
-public partial class BusterProjectile : CharacterBody2D
-{
-    public Sprite2D Sprite => _.Sprite;
-    public CollisionShape2D CollisionShape => _.CollisionShape;
     public AudioStreamPlayer ShootSoundEffect => _.ShootSoundEffect;
-    public VisibleOnScreenNotifier2D VisibleNotifier => _.VisibleOnScreenNotifier;
 
-    [Export] public int Damage { get; set; } = 1;
     [Export] public float ProjectileSpeed = 5f * 60f;
-
-    public Vector2 Direction { get; set; }
 
     public override void _Ready()
     {
-        VisibleNotifier.ScreenExited += ScreenExited;
-
+        base._Ready();
         ShootSoundEffect.Play();
 
         if (Direction.X < 0)
@@ -40,16 +22,23 @@ public partial class BusterProjectile : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        MoveAndCollide(Direction.Normalized() * ProjectileSpeed * (float)delta);
+        GlobalPosition += ProjectileSpeed * Direction.Normalized() * (float)delta;
     }
 
-    public void ScreenExited()
+    public override void Reflect()
     {
-        QueueFree();
+        base.Reflect();
+
+        // TODO: Play sound effect
+
+        Direction = new Vector2(-Direction.X, 0) + Vector2.Up;
+        Sprite.FlipH = !Sprite.FlipH;
     }
 
-    public new void QueueFree()
+    public override void QueueFree()
     {
+        IsConsumed = true;
+
         if (ShootSoundEffect.Playing)
         {
             Visible = false;

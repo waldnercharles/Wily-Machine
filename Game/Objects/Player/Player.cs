@@ -1,4 +1,5 @@
 using Godot;
+using Spaghetti.Messaging;
 
 namespace Spaghetti;
 
@@ -10,6 +11,11 @@ public sealed partial class Player : Actor
     public CollisionShape2D UprightCollisionShape => _.UprightCollisionShape;
     public CollisionShape2D SlideCollisionShape => _.SlideCollisionShape;
 
+    public Hurtbox Hurtbox => _.Hurtbox;
+
+    public CollisionShape2D HurtboxUprightCollisionShape => _.Hurtbox.UprightCollisionShape;
+    public CollisionShape2D HurtboxSlideCollisionShape => _.Hurtbox.SlideCollisionShape;
+
     public AudioStreamPlayer2D LandSoundEffect => _.LandSoundEffect;
     public AudioStreamPlayer2D HitSoundEffect => _.HitSoundEffect;
 
@@ -18,36 +24,35 @@ public sealed partial class Player : Actor
 
     public Ladder? Ladder { get; set; }
 
-    public bool IsIdle;
-    public bool IsWalking;
-    public bool IsDecelerating;
-    public bool IsSliding;
-    public bool IsInTunnel;
-    public bool IsJumping;
-    public bool IsFalling;
-    public bool IsAirborn;
-    public bool IsClimbing;
-    public bool IsTouchingLadder;
-    public bool IsTouchingLadderTop;
-    public bool IsFullAcceleration;
-    public bool IsShooting;
-    public bool IsTeleporting;
-    public bool IsMorphing;
+    public bool IsIdle { get; set; }
+    public bool IsWalking { get; set; }
+    public bool IsDecelerating { get; set; }
+    public bool IsSliding { get; set; }
+    public bool IsInTunnel { get; set; }
+    public bool IsJumping { get; set; }
+    public bool IsFalling { get; set; }
+    public bool IsAirborn { get; set; }
+    public bool IsClimbing { get; set; }
+    public bool IsTouchingLadder { get; set; }
+    public bool IsTouchingLadderTop { get; set; }
+    public bool IsFullAcceleration { get; set; }
+    public bool IsShooting { get; set; }
+    public bool IsTeleporting { get; set; }
+    public bool IsMorphing { get; set; }
 
-    public bool IsStunned;
+    public bool IsStunned { get; set; }
 
     public bool IsInvincible => RemainingInvincibilityFrames > 0;
     public bool IsBlinking => IsInvincible;
 
     public bool IsVulnerable => !IsInvincible && !IsStunned;
 
-    public bool IsDead;
-
     [Export] public int JumpBufferFrames { get; set; } = 6;
     public ulong IsOnFloorTimestamp { get; set; }
 
     [Export] public int TipToeFrames { get; set; } = 7;
     [Export] public int SlideFrames { get; set; } = 26;
+    public int SlideFrameCounter { get; set; }
 
     [Export] public int StunFrames { get; set; } = 32;
     [Export] public int StunInvincibilityFrames { get; set; } = 122;
@@ -77,6 +82,9 @@ public sealed partial class Player : Actor
 
         m_ShootingStateMachine.AddState(new NotShootingState(this));
         m_ShootingStateMachine.AddState(new IsShootingState(this));
+
+        MessageBus.Subscribe((in PlayerCamera.BeforeRoomTransition _) => BeforeRoomTransition());
+        MessageBus.Subscribe((in PlayerCamera.AfterRoomTransition _) => AfterRoomTransition());
     }
 
     public override void _Ready()
@@ -108,6 +116,11 @@ public sealed partial class Player : Actor
         m_ShootingStateMachine.Update(delta);
 
         base._PhysicsProcess(delta);
+
+        foreach (var hitbox in Hurtbox.Hitboxes)
+        {
+            TakeDamage(hitbox.Damage);
+        }
     }
 
     public override bool CanShoot()
@@ -130,6 +143,11 @@ public sealed partial class Player : Actor
         return !IsAirborn && !IsStunned && !TestSlideCollisionShape();
     }
 
+    public void StopSliding()
+    {
+        SlideFrameCounter = SlideFrames;
+    }
+
     public bool CanJump()
     {
         return !IsAirborn || IsClimbing;
@@ -140,12 +158,18 @@ public sealed partial class Player : Actor
         LandSoundEffect.Play();
     }
 
-    public void OnHit(int damage)
+    public void TakeDamage(int damage)
     {
         if (IsVulnerable)
         {
             HitSoundEffect.Play();
-            Stun();
+
+            if (!IsStunned)
+            {
+                SetTemporaryMovementState<StunMovementState>();
+            }
+
+            IsStunned = true;
             Health -= damage;
 
             if (Health <= 0)
@@ -155,24 +179,36 @@ public sealed partial class Player : Actor
         }
     }
 
-    public void Stun()
+    public void BeforeRoomTransition()
     {
-        if (!IsStunned)
-        {
-            SetTemporaryMovementState<StunMovementState>();
-        }
+        SpriteAnimationPlayer.ProcessMode = ProcessModeEnum.WhenPaused;
 
-        IsStunned = true;
+        if (IsClimbing)
+        {
+            ChangeSpriteAnimation(PlayerAnimation.ClimbMove);
+        }
+        else if (IsIdle)
+        {
+            SetMovementState<WalkMovementState>();
+            ChangeSpriteAnimation(PlayerAnimation.Move);
+        }
+    }
+
+    public void AfterRoomTransition()
+    {
+        SpriteAnimationPlayer.ProcessMode = ProcessModeEnum.Inherit;
+
+        if (!IsClimbing && !IsSliding && !IsAirborn)
+        {
+            SetMovementState<IdleMovementState>();
+        }
     }
 
     public void Kill() { }
 
     public void ToggleSpriteDirection()
     {
-        if (Sprite != null)
-        {
-            Sprite.FlipH = !Sprite.FlipH;
-        }
+        Sprite.FlipH = !Sprite.FlipH;
     }
 
     public bool TestUprightCollisionShape()

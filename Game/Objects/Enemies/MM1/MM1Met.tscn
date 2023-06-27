@@ -1,0 +1,54 @@
+[gd_scene load_steps=10 format=3 uid="uid://757jwpy5li4i"]
+
+[ext_resource type="PackedScene" uid="uid://dqjovv4u6eddc" path="res://Objects/Enemies/Enemy.tscn" id="1_r6b0q"]
+[ext_resource type="Script" path="res://Objects/Enemies/MM1/MM1Met.cs" id="2_a3okh"]
+[ext_resource type="Texture2D" uid="uid://bmek1epq34jys" path="res://Assets/Sprites/sprMM1Met.png" id="3_uohc2"]
+[ext_resource type="Script" path="res://Objects/Weapons/Weapon.cs" id="4_ucq04"]
+[ext_resource type="PackedScene" uid="uid://5gxsl27y2v7a" path="res://Objects/Enemies/MM1/MM1MetProjectile.tscn" id="5_pm5mi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xold"]
+size = Vector2(12, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1cse"]
+size = Vector2(18, 11)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_leqnb"]
+radius = 64.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro327"]
+size = Vector2(18, 11)
+
+[node name="MM1Met" instance=ExtResource("1_r6b0q")]
+script = ExtResource("2_a3okh")
+GuardFrames = 50
+ShootDelayFrames = 17
+ShootVulnerableFrames = 30
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("3_uohc2")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_3xold")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_q1cse")
+
+[node name="DetectionArea" type="Area2D" parent="." index="6"]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
+shape = SubResource("CircleShape2D_leqnb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="7"]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_ro327")
+
+[node name="Weapon" type="Node" parent="." index="8"]
+script = ExtResource("4_ucq04")
+Projectile = ExtResource("5_pm5mi")

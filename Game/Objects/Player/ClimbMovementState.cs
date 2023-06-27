@@ -29,9 +29,9 @@ public sealed class ClimbMovementState : MovementState
             return;
         }
 
-        Log.Assert(Player.CollisionShape != null, "Player.CollisionShape != null");
+        Log.Assert(Player.CurrentCollisionShape != null, "Player.CollisionShape != null");
 
-        var playerCollisionShape = Player.CollisionShape;
+        var playerCollisionShape = Player.CurrentCollisionShape;
         var ladderCollisionShape = Player.Ladder.CollisionShape;
 
         var distanceToLadder = ladderCollisionShape.GlobalPosition - playerCollisionShape.GlobalPosition;
@@ -79,11 +79,11 @@ public sealed class ClimbMovementState : MovementState
             return StateChange.None;
         }
 
-        Log.Assert(Player.CollisionShape != null);
+        Log.Assert(Player.CurrentCollisionShape != null);
         Log.Assert(Player.Ladder.CollisionShape != null);
 
-        var playerFeet = Player.CollisionShape.GlobalPosition.Y +
-                         Player.CollisionShape.Shape.GetRect().End.Y;
+        var playerFeet = Player.CurrentCollisionShape.GlobalPosition.Y +
+                         Player.CurrentCollisionShape.Shape.GetRect().End.Y;
 
         var ladderTop = Player.Ladder.TopCollisionShape.GlobalPosition.Y +
                         Player.Ladder.TopCollisionShape.Shape.GetRect().Position.Y;

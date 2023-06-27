@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqjovv4u6eddc"]
+
+[ext_resource type="PackedScene" uid="uid://dsm2bfb47hd47" path="res://Objects/Actor.tscn" id="1_5p3kx"]
+[ext_resource type="Script" path="res://Objects/Enemies/Enemy.cs" id="1_tn4av"]
+[ext_resource type="PackedScene" uid="uid://catgpvh3c60xp" path="res://Objects/Hitbox.tscn" id="3_7k2by"]
+[ext_resource type="PackedScene" uid="uid://bjdd8r41iw58v" path="res://Objects/Hurtbox.tscn" id="4_i5l86"]
+
+[node name="Enemy" node_paths=PackedStringArray("CurrentCollisionShape") instance=ExtResource("1_5p3kx")]
+collision_layer = 4
+script = ExtResource("1_tn4av")
+Health = 1
+CurrentCollisionShape = NodePath("")
+Faction = 2
+DeathType = 1
+IsAffectedByGravity = true
+
+[node name="Hitbox" parent="." index="4" instance=ExtResource("3_7k2by")]
+collision_layer = 4
+collision_mask = 2
+
+[node name="Hurtbox" parent="." index="5" instance=ExtResource("4_i5l86")]
+collision_layer = 4
+collision_mask = 8

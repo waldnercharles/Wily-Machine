@@ -4,8 +4,6 @@ namespace Spaghetti;
 
 public sealed class SlideMovementState : MovementState
 {
-    private int m_SlideFrameCounter = 0;
-
     public SlideMovementState(Player player) : base(player) { }
 
     public override void Enter(State? previousState)
@@ -15,9 +13,12 @@ public sealed class SlideMovementState : MovementState
         Player.UprightCollisionShape.Disabled = true;
         Player.SlideCollisionShape.Disabled = false;
 
-        Player.CollisionShape = Player.SlideCollisionShape;
+        Player.HurtboxUprightCollisionShape.Disabled = true;
+        Player.HurtboxSlideCollisionShape.Disabled = true;
 
-        m_SlideFrameCounter = 0;
+        Player.CurrentCollisionShape = Player.SlideCollisionShape;
+
+        Player.SlideFrameCounter = 0;
 
         Player.IsWalking = false;
         Player.IsIdle = false;
@@ -38,7 +39,10 @@ public sealed class SlideMovementState : MovementState
         Player.UprightCollisionShape.Disabled = false;
         Player.SlideCollisionShape.Disabled = true;
 
-        Player.CollisionShape = Player.UprightCollisionShape;
+        Player.HurtboxUprightCollisionShape.Disabled = false;
+        Player.HurtboxSlideCollisionShape.Disabled = true;
+
+        Player.CurrentCollisionShape = Player.UprightCollisionShape;
 
         Player.IsSliding = false;
         Player.IsInTunnel = false;
@@ -46,13 +50,13 @@ public sealed class SlideMovementState : MovementState
 
     public override StateChange Update(float delta)
     {
-        m_SlideFrameCounter++;
+        Player.SlideFrameCounter++;
 
         Player.IsInTunnel = Player.IsOnFloor() && Player.TestUprightCollisionShape();
 
         var controller = Player.Controller;
 
-        if (Player.IsInTunnel || m_SlideFrameCounter < Player.SlideFrames &&
+        if (Player.IsInTunnel || Player.SlideFrameCounter < Player.SlideFrames &&
             !Player.TestSlideCollisionShape() && Player.IsOnFloor())
         {
             var velocity = Player.Velocity;

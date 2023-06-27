@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Spaghetti;
@@ -38,7 +39,7 @@ public static class VariantExt
             Variant.Type.StringName => left.AsStringName().Equals(right.AsStringName()),
             Variant.Type.NodePath => left.AsNodePath().Equals(right.AsNodePath()),
             Variant.Type.Rid => left.AsRid().Equals(right.AsRid()),
-            Variant.Type.Object => Equals(left.AsGodotObject(), right.AsGodotObject()),
+            Variant.Type.Object => left.AsGodotObject().Equals(right.AsGodotObject()),
             Variant.Type.Callable => left.AsCallable().Equals(right),
             Variant.Type.Signal => left.AsSignal().Equals(right.AsSignal()),
             Variant.Type.Dictionary => left.AsGodotDictionary().Equals(right.AsGodotDictionary()),

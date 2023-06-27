@@ -12,7 +12,6 @@ format = 2
 script = ExtResource("1_harry")
 
 [node name="DebugRect" type="ReferenceRect" parent="."]
-visible = false
 top_level = true
 offset_left = -192.0
 offset_top = -112.0
@@ -21,6 +20,7 @@ offset_bottom = 128.0
 border_width = 3.0
 
 [node name="Area" type="Area2D" parent="."]
+visible = false
 position = Vector2(8, 8)
 collision_layer = 128
 collision_mask = 2

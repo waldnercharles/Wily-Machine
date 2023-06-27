@@ -28,4 +28,7 @@
         <Content Include="m5x7.ttf" />
         <None Include="**/*.tscn" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Objects\Components\IDamageableComponent.cs" />
+    </ItemGroup>
 </Project>

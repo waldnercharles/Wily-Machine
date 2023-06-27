@@ -82,10 +82,10 @@ public partial class Ladder : StaticBody2D
 
             var controller = player.Controller;
 
-            if (player.CollisionShape != null)
+            if (player.CurrentCollisionShape != null)
             {
-                var playerFeet = player.CollisionShape.GlobalPosition.Y +
-                                 player.CollisionShape.Shape.GetRect().End.Y;
+                var playerFeet = player.CurrentCollisionShape.GlobalPosition.Y +
+                                 player.CurrentCollisionShape.Shape.GetRect().End.Y;
 
                 var ladderTop = TopCollisionShape.GlobalPosition.Y +
                                 TopCollisionShape.Shape.GetRect().Position.Y;

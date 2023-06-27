@@ -1,27 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbjkoh6x6htti"]
+[gd_scene load_steps=8 format=3 uid="uid://cp5p85ks88xcx"]
 
-[ext_resource type="Script" path="res://Objects/Weapons/Projectiles/BusterProjectile.cs" id="1_4q567"]
-[ext_resource type="Texture2D" uid="uid://crj0esi7lf36g" path="res://Objects/Weapons/Sprites/MegaBusterProjectile.png" id="2_4rg1u"]
-[ext_resource type="AudioStream" uid="uid://bvh0ejaykaq4n" path="res://Objects/Weapons/Sounds/MegaBuster.wav" id="3_8enip"]
+[ext_resource type="PackedScene" uid="uid://mpu6py3ngmbb" path="res://Objects/Weapons/Projectiles/Projectile.tscn" id="1_exjq8"]
+[ext_resource type="Script" path="res://Objects/Weapons/Projectiles/BusterProjectile.cs" id="2_qw6a4"]
+[ext_resource type="Texture2D" uid="uid://crj0esi7lf36g" path="res://Objects/Weapons/Sprites/MegaBusterProjectile.png" id="3_j34ue"]
+[ext_resource type="AudioStream" uid="uid://bvh0ejaykaq4n" path="res://Objects/Weapons/Sounds/MegaBuster.wav" id="4_g2gfc"]
+[ext_resource type="PackedScene" uid="uid://catgpvh3c60xp" path="res://Objects/Hitbox.tscn" id="5_v3ajj"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rwesx"]
-resource_local_to_scene = true
+[sub_resource type="CircleShape2D" id="CircleShape2D_ddksj"]
 radius = 4.0
 
-[node name="BusterProjectile" type="CharacterBody2D" groups=["BusterProjectile"]]
-z_index = 4096
-collision_layer = 0
-collision_mask = 4
-script = ExtResource("1_4q567")
+[sub_resource type="CircleShape2D" id="CircleShape2D_hakax"]
+radius = 4.0
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_4rg1u")
+[node name="BusterProjectile" instance=ExtResource("1_exjq8")]
+script = ExtResource("2_qw6a4")
+ProjectileSpeed = 300.0
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_rwesx")
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("3_j34ue")
 
-[node name="VisibleOnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="CollisionShape" parent="." index="1"]
+shape = SubResource("CircleShape2D_ddksj")
+
+[node name="VisibleOnScreenNotifier" parent="." index="2"]
 rect = Rect2(-4, -3, 8, 6)
 
-[node name="ShootSoundEffect" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_8enip")
+[node name="ShootSoundEffect" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource("4_g2gfc")
+
+[node name="Hitbox" parent="." index="4" instance=ExtResource("5_v3ajj")]
+collision_layer = 8
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_hakax")

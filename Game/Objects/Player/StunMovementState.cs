@@ -25,7 +25,12 @@ public sealed class StunMovementState : MovementState
         var velocity = Player.Velocity;
         velocity.X = Player.KnockbackVelocity.X * Player.Direction.X;
 
-        if (Player.IsSliding || Player.IsClimbing)
+        if (Player.IsSliding)
+        {
+            Player.StopSliding();
+        }
+
+        if (Player.IsClimbing)
         {
             velocity.X = 0;
         }

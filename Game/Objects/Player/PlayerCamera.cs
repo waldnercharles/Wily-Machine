@@ -123,13 +123,11 @@ public partial class PlayerCamera : Camera2D
         if (!Player.IsDead)
         {
             var playerSize =
-                Player.CollisionShape?.Shape.GetRect().Size ?? Vector2.Zero;
+                Player.CurrentCollisionShape?.Shape.GetRect().Size ?? Vector2.Zero;
 
             var playerMovement = transitionDirection.X != 0
                 ? new Vector2(transitionPosition - Player.GlobalPosition.X + playerSize.X * transitionDirection.X, 0)
                 : new Vector2(0, transitionPosition - Player.GlobalPosition.Y + playerSize.Y * transitionDirection.Y);
-
-            Log.Trace(playerMovement.ToString());
 
             tween
                 .Parallel()
@@ -161,13 +159,8 @@ public partial class PlayerCamera : Camera2D
 
         var isVertical = from.LimitBottom <= to.LimitTop || from.LimitTop >= to.LimitBottom;
 
-        Log.Trace("From: {0}, {1}", from.LimitBottom, from.LimitTop);
-        Log.Trace("To: {0}, {1}", to.LimitBottom, to.LimitTop);
-
         if (isVertical)
         {
-            Log.Trace("IsVertical");
-
             if (to.GlobalPosition.Y > from.GlobalPosition.Y)
             {
                 transitionDirection = Vector2.Down;

@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bngsh20x0q4m8"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bngsh20x0q4m8"]
 
 [ext_resource type="Texture2D" uid="uid://c0yywwmq1y6rk" path="res://Map/Tilesets/Images/bgBasic.png" id="1_yiodp"]
+[ext_resource type="PackedScene" uid="uid://757jwpy5li4i" path="res://Objects/Enemies/MM1/MM1Met.tscn" id="2_7j710"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v6u54"]
 texture = ExtResource("1_yiodp")
@@ -376,6 +377,10 @@ texture = ExtResource("1_yiodp")
 7:7/0/physics_layer_0/angular_velocity = 0.0
 7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_3kjr0"]
+resource_name = "Enemies"
+scenes/1/scene = ExtResource("2_7j710")
+
 [resource]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 6
@@ -385,3 +390,4 @@ terrain_set_0/terrain_0/color = Color(1, 0, 0, 1)
 custom_data_layer_0/name = "Type"
 custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_v6u54")
+sources/1 = SubResource("TileSetScenesCollectionSource_3kjr0")

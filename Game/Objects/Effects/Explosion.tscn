@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlmi60sbfx7hf"]
+
+[ext_resource type="PackedScene" uid="uid://cleoan5g85f0u" path="res://Objects/Effects/Effect.tscn" id="1_qj8va"]
+[ext_resource type="Script" path="res://Objects/Effects/Explosion.cs" id="2_hncoc"]
+[ext_resource type="Texture2D" uid="uid://duo3fov8ydusm" path="res://Assets/Sprites/sprExplosion.png" id="3_2bd5t"]
+
+[sub_resource type="Animation" id="Animation_prerb"]
+resource_name = "SmallExplosion"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_2bd5t")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5kc71"]
+_data = {
+"SmallExplosion": SubResource("Animation_prerb")
+}
+
+[node name="Explosion" instance=ExtResource("1_qj8va")]
+script = ExtResource("2_hncoc")
+ItemDrop = -1
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_2bd5t")
+hframes = 5
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_5kc71")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="ExplosionFinished"]

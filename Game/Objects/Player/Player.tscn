@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cuqvu38wfu6p6"]
+[gd_scene load_steps=42 format=3 uid="uid://cuqvu38wfu6p6"]
 
 [ext_resource type="PackedScene" uid="uid://dsm2bfb47hd47" path="res://Objects/Actor.tscn" id="1_lw3h8"]
 [ext_resource type="Script" path="res://Objects/Player/Player.cs" id="2_8vivm"]
@@ -14,9 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://cr6wr17aytirf" path="res://Objects/Player/Sprites/Stagger.png" id="12_4peld"]
 [ext_resource type="Texture2D" uid="uid://cqpl88qhpcuqj" path="res://Objects/Player/Sprites/Hit.png" id="13_518r3"]
 [ext_resource type="Script" path="res://Objects/Weapons/Buster.cs" id="14_52vjp"]
-[ext_resource type="PackedScene" uid="uid://dbjkoh6x6htti" path="res://Objects/Weapons/Projectiles/BusterProjectile.tscn" id="15_f344t"]
+[ext_resource type="PackedScene" uid="uid://cp5p85ks88xcx" path="res://Objects/Weapons/Projectiles/BusterProjectile.tscn" id="15_f344t"]
 [ext_resource type="AudioStream" uid="uid://b2kn0gxwmdihq" path="res://Objects/Player/Sounds/Land.wav" id="16_bbxfa"]
 [ext_resource type="AudioStream" uid="uid://cil8bd4kbo282" path="res://Objects/Player/Sounds/GetHit.wav" id="17_cawsu"]
+[ext_resource type="PackedScene" uid="uid://bjdd8r41iw58v" path="res://Objects/Hurtbox.tscn" id="18_g14g1"]
 
 [sub_resource type="Animation" id="Animation_boga3"]
 resource_name = "ClimbExit"
@@ -970,7 +971,13 @@ size = Vector2(11, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ks676"]
 size = Vector2(17, 11)
 
-[node name="Actor" node_paths=PackedStringArray("Weapon", "CollisionShape") instance=ExtResource("1_lw3h8")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_elehg"]
+size = Vector2(11, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orra7"]
+size = Vector2(17, 11)
+
+[node name="Player" node_paths=PackedStringArray("Weapon", "CurrentCollisionShape") instance=ExtResource("1_lw3h8")]
 z_index = 2048
 collision_layer = 2
 collision_mask = 65
@@ -990,11 +997,11 @@ ClimbVelocity = Vector2(78, 78)
 JumpVelocity = Vector2(0, -315)
 SlideVelocity = Vector2(150, 0)
 KnockbackVelocity = Vector2(-30, 0)
-CollisionShape = NodePath("UprightCollisionShape")
+CurrentCollisionShape = NodePath("UprightCollisionShape")
 Faction = 1
 DeathType = 4
 IsAffectedByGravity = true
-WeaponOffset = Vector2(16, -0.666667)
+WeaponOffset = Vector2(16, 0)
 
 [node name="Controller" type="Node" parent="." index="0"]
 script = ExtResource("3_y34qb")
@@ -1021,6 +1028,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_3d5jf")
 
 [node name="SlideCollisionShape" type="CollisionShape2D" parent="." index="6"]
+visible = false
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_ks676")
 disabled = true
@@ -1043,4 +1051,18 @@ stream = ExtResource("17_cawsu")
 max_distance = 800.0
 
 [node name="Marker2D" type="Marker2D" parent="." index="10"]
+visible = false
 position = Vector2(31, -2)
+
+[node name="Hurtbox" parent="." index="11" instance=ExtResource("18_g14g1")]
+collision_layer = 2
+collision_mask = 12
+
+[node name="UprightCollisionShape" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_elehg")
+
+[node name="SlideCollisionShape" type="CollisionShape2D" parent="Hurtbox" index="1"]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_orra7")
+disabled = true

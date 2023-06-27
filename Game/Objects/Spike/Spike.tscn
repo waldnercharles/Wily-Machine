@@ -1,14 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwci87l74gu5q"]
+[gd_scene load_steps=5 format=3 uid="uid://dwci87l74gu5q"]
 
-[ext_resource type="PackedScene" uid="uid://bisprgvjvvnng" path="res://Objects/DamageArea/DamageArea.tscn" id="1_rmaoj"]
+[ext_resource type="Script" path="res://Objects/Spike/Spike.cs" id="1_dpuc1"]
+[ext_resource type="PackedScene" uid="uid://catgpvh3c60xp" path="res://Objects/Hitbox.tscn" id="2_dwrbl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgym7"]
 resource_local_to_scene = true
 size = Vector2(16, 16)
 
-[node name="DamageArea" instance=ExtResource("1_rmaoj")]
-collision_mask = 2
-Damage = 10
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxdgw"]
+size = Vector2(17, 17)
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="Spike" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_dpuc1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pgym7")
+
+[node name="Hitbox" parent="." instance=ExtResource("2_dwrbl")]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_lxdgw")
