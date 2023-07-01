@@ -18,11 +18,15 @@ radius = 64.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ro327"]
 size = Vector2(18, 11)
 
-[node name="MM1Met" instance=ExtResource("1_r6b0q")]
+[node name="MM1Met" node_paths=PackedStringArray("CurrentCollisionShape") instance=ExtResource("1_r6b0q")]
+floor_constant_speed = true
+platform_floor_layers = 1
+platform_wall_layers = 1
 script = ExtResource("2_a3okh")
 GuardFrames = 50
 ShootDelayFrames = 17
 ShootVulnerableFrames = 30
+CurrentCollisionShape = NodePath("CollisionShape2D")
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("3_uohc2")
@@ -31,15 +35,19 @@ hframes = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_3xold")
+debug_color = Color(1, 0, 0, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_q1cse")
+debug_color = Color(0, 1, 0, 0.25)
 
 [node name="DetectionArea" type="Area2D" parent="." index="6"]
 visible = false
 collision_layer = 0
 collision_mask = 2
+input_pickable = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
 shape = SubResource("CircleShape2D_leqnb")

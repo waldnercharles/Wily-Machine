@@ -1,6 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfl561qr60j55"]
+[gd_scene load_steps=5 format=3 uid="uid://dfl561qr60j55"]
 
 [ext_resource type="Script" path="res://Map/Room.cs" id="1_harry"]
+[ext_resource type="Shader" path="res://Map/Room.gdshader" id="1_je04i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f14fr"]
+resource_local_to_scene = true
+shader = ExtResource("1_je04i")
+shader_parameter/enabled = true
+shader_parameter/position = Vector2(0, 0)
+shader_parameter/tile_size = Vector2(16, 16)
+shader_parameter/width = null
+shader_parameter/height = null
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwjj3"]
 resource_local_to_scene = true
@@ -8,6 +18,7 @@ size = Vector2(400, 240)
 
 [node name="Room" type="TileMap"]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_f14fr")
 format = 2
 script = ExtResource("1_harry")
 
@@ -20,10 +31,13 @@ offset_bottom = 128.0
 border_width = 3.0
 
 [node name="Area" type="Area2D" parent="."]
+process_mode = 3
 visible = false
 position = Vector2(8, 8)
 collision_layer = 128
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
 shape = SubResource("RectangleShape2D_qwjj3")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)

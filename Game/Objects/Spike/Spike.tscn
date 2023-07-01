@@ -8,7 +8,7 @@ resource_local_to_scene = true
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lxdgw"]
-size = Vector2(17, 17)
+size = Vector2(16.5, 16.5)
 
 [node name="Spike" type="StaticBody2D"]
 collision_mask = 0

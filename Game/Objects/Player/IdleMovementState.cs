@@ -29,26 +29,26 @@ public sealed class IdleMovementState : MovementState
 
         if (!Player.IsOnFloor())
         {
-            Player.EnqueueMovementState<JumpMovementState>();
+            Player.SetNextMovementState<JumpMovementState>();
             return StateChange.Next;
         }
 
         if (controller.ShouldMoveLeft() && !controller.ShouldMoveRight() ||
             !controller.ShouldMoveLeft() && controller.ShouldMoveRight())
         {
-            Player.EnqueueMovementState<WalkMovementState>();
+            Player.SetNextMovementState<WalkMovementState>();
             return StateChange.Next;
         }
 
         if (controller.ShouldSlide() && Player.CanSlide())
         {
-            Player.EnqueueMovementState<SlideMovementState>();
+            Player.SetNextMovementState<SlideMovementState>();
             return StateChange.Next;
         }
 
         if (controller.ShouldJump() && !controller.ShouldSlide() && Player.CanJump())
         {
-            Player.EnqueueMovementState<JumpMovementState>();
+            Player.SetNextMovementState<JumpMovementState>();
             return StateChange.Next;
         }
 

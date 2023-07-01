@@ -55,7 +55,7 @@ public sealed class ClimbMovementState : MovementState
         if (Player.Ladder == null)
         {
             Player.IsFalling = true;
-            Player.EnqueueMovementState<JumpMovementState>();
+            Player.SetNextMovementState<JumpMovementState>();
             return StateChange.Next;
         }
 
@@ -109,7 +109,7 @@ public sealed class ClimbMovementState : MovementState
                 Player.Position += new Vector2(0, -distanceToLadderTop);
 
                 Player.Velocity = Vector2.Zero;
-                Player.EnqueueMovementState<IdleMovementState>();
+                Player.SetNextMovementState<IdleMovementState>();
                 return StateChange.Next;
             }
 
@@ -124,13 +124,13 @@ public sealed class ClimbMovementState : MovementState
 
             if (Player.IsOnFloor() && distanceToLadderTop > 0)
             {
-                Player.EnqueueMovementState<IdleMovementState>();
+                Player.SetNextMovementState<IdleMovementState>();
                 return StateChange.Next;
             }
         }
         else if (controller.ShouldJump())
         {
-            Player.EnqueueMovementState<JumpMovementState>();
+            Player.SetNextMovementState<JumpMovementState>();
             return StateChange.Next;
         }
 

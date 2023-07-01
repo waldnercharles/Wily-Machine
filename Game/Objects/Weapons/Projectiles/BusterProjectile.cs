@@ -9,9 +9,8 @@ public partial class BusterProjectile : Projectile
 
     [Export] public float ProjectileSpeed = 5f * 60f;
 
-    public override void _Ready()
+    public override void Initialize()
     {
-        base._Ready();
         ShootSoundEffect.Play();
 
         if (Direction.X < 0)
@@ -35,19 +34,18 @@ public partial class BusterProjectile : Projectile
         Sprite.FlipH = !Sprite.FlipH;
     }
 
-    public override void QueueFree()
+    public override void Release()
     {
         IsConsumed = true;
 
         if (ShootSoundEffect.Playing)
         {
             Visible = false;
-            CollisionShape.SetDeferred(nameof(CollisionShape.Disabled), true);
-            ShootSoundEffect.Finished += base.QueueFree;
+            ShootSoundEffect.Finished += base.Release;
         }
         else
         {
-            base.QueueFree();
+            base.Release();
         }
     }
 }

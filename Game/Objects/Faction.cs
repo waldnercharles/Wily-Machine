@@ -28,6 +28,11 @@ public static class FactionExt
             (Faction.Enemy, Faction.Player) => true,
             (Faction.Enemy, Faction.Enemy) => false,
             (Faction.Enemy, Faction.Misc) => true,
+
+            (Faction.Misc, Faction.Neutral) => false,
+            (Faction.Misc, Faction.Player) => false,
+            (Faction.Misc, Faction.Enemy) => false,
+            (Faction.Misc, Faction.Misc) => false,
             _ => false
         };
     }

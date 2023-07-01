@@ -10,6 +10,11 @@ public partial class MM1MetProjectile : Projectile
 
     private Vector2 m_Velocity;
 
+    public override void Initialize()
+    {
+        m_Velocity = Vector2.Zero;
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         if (m_Velocity == Vector2.Zero)

@@ -44,7 +44,7 @@ public sealed class IsShootingState : ShootingState
 
         if (m_CooldownFrameCounter > COOLDOWN_FRAMES)
         {
-            Player.EnqueueShootingState<NotShootingState>();
+            Player.SetNextShootingState<NotShootingState>();
             return StateChange.Next;
         }
 

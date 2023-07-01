@@ -3,4 +3,8 @@
 [ext_resource type="Script" path="res://Objects/Hurtbox.cs" id="1_ev65g"]
 
 [node name="Hurtbox" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+input_pickable = false
+monitorable = false
 script = ExtResource("1_ev65g")

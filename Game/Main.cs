@@ -31,7 +31,6 @@ public partial class Main : Node
         SubViewport.Size2DOverride = Global.InternalResolution;
 
         SubViewport.HandleInputLocally = false;
-        SubViewport.Snap2DTransformsToPixel = true;
 
         SubViewport.CanvasItemDefaultTextureFilter = Godot.Viewport.DefaultCanvasItemTextureFilter.Nearest;
         AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), true);

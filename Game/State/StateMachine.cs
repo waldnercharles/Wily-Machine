@@ -23,8 +23,6 @@ public class StateMachine
         }
     }
 
-    public State? TemporaryState { get; private set; }
-
     public State? NextState { get; private set; }
     public State? State { get; private set; }
 
@@ -35,26 +33,14 @@ public class StateMachine
             return;
         }
 
-        if (TemporaryState != null)
+        var stateChangeAction = State?.Update((float)delta) ?? StateChange.Next;
+
+        if (stateChangeAction == StateChange.Next && NextState != null)
         {
-            var stateChangeAction = TemporaryState.Update((float)delta);
+            var nextState = NextState;
+            NextState = null;
 
-            if (stateChangeAction == StateChange.Next)
-            {
-                PopTemporaryState();
-            }
-        }
-        else
-        {
-            var stateChangeAction = State?.Update((float)delta);
-
-            if (stateChangeAction == StateChange.Next && NextState != null)
-            {
-                var nextState = NextState;
-                NextState = null;
-
-                SetState(nextState);
-            }
+            SetState(nextState);
         }
     }
 
@@ -104,40 +90,13 @@ public class StateMachine
 
         var previousState = State;
 
-        State?.Exit();
-        State = state;
-        State.Enter(previousState);
-        Log.Trace("Entered State {0}", state.GetType().Name);
-    }
-
-    public void SetTemporaryState<T>() where T : State
-    {
-        Log.Assert(m_States.ContainsKey(typeof(T)),
-            "StateMachine does not contain state {0}", typeof(T).Name);
-
-        SetTemporaryState(m_States[typeof(T)]);
-    }
-
-    public void SetTemporaryState(State? state)
-    {
-        if (!Enabled)
+        if (State?.CanExit() ?? true)
         {
-            return;
+            State?.Exit();
+
+            State = state;
+            State.Enter(previousState);
+            Log.Trace("Entered State {0}", state.GetType().Name);
         }
-
-        Log.Assert(state == null || m_States.ContainsValue(state),
-            "StateMachine does not contain state {0}", state!.GetType().Name);
-
-        var previousState = TemporaryState ?? State;
-
-        TemporaryState?.Exit();
-        TemporaryState = state;
-        TemporaryState?.Enter(previousState);
-    }
-
-    public void PopTemporaryState()
-    {
-        TemporaryState?.Exit();
-        TemporaryState = null;
     }
 }

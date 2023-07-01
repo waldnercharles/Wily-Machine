@@ -70,6 +70,7 @@ public partial class PlayerCamera : Camera2D
             return;
         }
 
+        room.Visible = true;
         MessageBus.Publish(new BeforeRoomTransition());
 
         GetTree().Paused = true;
@@ -139,6 +140,16 @@ public partial class PlayerCamera : Camera2D
 
         ToSignal(tween, Tween.SignalName.Finished).OnCompleted(() =>
         {
+            var children = CurrentRoom.GetChildren();
+
+            for (var i = 0; i < children.Count; i++)
+            {
+                if (children[i] is Projectile projectile)
+                {
+                    projectile.Release();
+                }
+            }
+
             CurrentRoom = room;
 
             GetTree().Paused = false;

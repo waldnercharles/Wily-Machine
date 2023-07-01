@@ -19,52 +19,53 @@ public sealed partial class Player : Actor
     public AudioStreamPlayer2D LandSoundEffect => _.LandSoundEffect;
     public AudioStreamPlayer2D HitSoundEffect => _.HitSoundEffect;
 
-    [Export] public int Health { get; set; } = 1;
-    [Export] public Weapon? Weapon { get; set; }
+    [Export] public int Health = 1;
+    [Export] public Weapon? Weapon;
 
-    public Ladder? Ladder { get; set; }
+    public Ladder? Ladder;
 
-    public bool IsIdle { get; set; }
-    public bool IsWalking { get; set; }
-    public bool IsDecelerating { get; set; }
-    public bool IsSliding { get; set; }
-    public bool IsInTunnel { get; set; }
-    public bool IsJumping { get; set; }
-    public bool IsFalling { get; set; }
-    public bool IsAirborn { get; set; }
-    public bool IsClimbing { get; set; }
-    public bool IsTouchingLadder { get; set; }
-    public bool IsTouchingLadderTop { get; set; }
-    public bool IsFullAcceleration { get; set; }
-    public bool IsShooting { get; set; }
-    public bool IsTeleporting { get; set; }
-    public bool IsMorphing { get; set; }
-
-    public bool IsStunned { get; set; }
+    public bool IsIdle;
+    public bool IsWalking;
+    public bool IsDecelerating;
+    public bool IsSliding;
+    public bool IsInTunnel;
+    public bool IsJumping;
+    public bool IsFalling;
+    public bool IsAirborn;
+    public bool IsClimbing;
+    public bool IsTouchingLadder;
+    public bool IsTouchingLadderTop;
+    public bool IsFullAcceleration;
+    public bool IsShooting;
+    public bool IsTeleporting;
+    public bool IsMorphing;
 
     public bool IsInvincible => RemainingInvincibilityFrames > 0;
-    public bool IsBlinking => IsInvincible;
+    public bool IsBlinking => RemainingInvincibilityFrames > 0;
 
-    public bool IsVulnerable => !IsInvincible && !IsStunned;
+    public bool IsStunned;
 
-    [Export] public int JumpBufferFrames { get; set; } = 6;
-    public ulong IsOnFloorTimestamp { get; set; }
+    public bool IsVulnerable => !IsInvincible;
 
-    [Export] public int TipToeFrames { get; set; } = 7;
-    [Export] public int SlideFrames { get; set; } = 26;
-    public int SlideFrameCounter { get; set; }
+    [Export] public int JumpBufferFrames = 6;
+    public ulong IsOnFloorTimestamp;
 
-    [Export] public int StunFrames { get; set; } = 32;
-    [Export] public int StunInvincibilityFrames { get; set; } = 122;
+    [Export] public int TipToeFrames = 7;
+    [Export] public int SlideFrames = 26;
+    public int SlideFrameCounter;
 
-    public int RemainingInvincibilityFrames { get; set; }
+    [Export] public int StunFrames = 32;
+    [Export] public int StunInvincibilityFrames = 122;
 
-    [Export] public Vector2 WalkVelocity { get; set; } = new Vector2(1.3f, 0f) * 60f;
-    [Export] public Vector2 TipToeVelocity { get; set; } = new Vector2(1f, 0f) * 60f;
-    [Export] public Vector2 ClimbVelocity { get; set; } = new Vector2(1.3f, 1.3f) * 60f;
-    [Export] public Vector2 JumpVelocity { get; set; } = -new Vector2(0f, 4.75f + 0.25f * 2) * 60;
-    [Export] public Vector2 SlideVelocity { get; set; } = new Vector2(2.5f, 0f) * 60;
-    [Export] public Vector2 KnockbackVelocity { get; set; } = new Vector2(-0.5f, 0) * 60;
+    public int RemainingInvincibilityFrames;
+    public int RemainingHitEffectFrames;
+
+    [Export] public Vector2 WalkVelocity = new Vector2(1.3f, 0f) * 60f;
+    [Export] public Vector2 TipToeVelocity = new Vector2(1f, 0f) * 60f;
+    [Export] public Vector2 ClimbVelocity = new Vector2(1.3f, 1.3f) * 60f;
+    [Export] public Vector2 JumpVelocity = -new Vector2(0f, 4.75f + 0.25f * 2) * 60;
+    [Export] public Vector2 SlideVelocity = new Vector2(2.5f, 0f) * 60;
+    [Export] public Vector2 KnockbackVelocity = new Vector2(-0.5f, 0) * 60;
 
     public Player()
     {
@@ -89,6 +90,8 @@ public sealed partial class Player : Actor
 
     public override void _Ready()
     {
+        base._Ready();
+
         SetMovementState<IdleMovementState>();
         SetShootingState<NotShootingState>();
     }
@@ -108,6 +111,11 @@ public sealed partial class Player : Actor
         if (RemainingInvincibilityFrames > 0)
         {
             RemainingInvincibilityFrames--;
+        }
+
+        if (RemainingHitEffectFrames > 0)
+        {
+            RemainingHitEffectFrames--;
         }
 
         ChooseEffectAnimation();
@@ -164,12 +172,11 @@ public sealed partial class Player : Actor
         {
             HitSoundEffect.Play();
 
-            if (!IsStunned)
-            {
-                SetTemporaryMovementState<StunMovementState>();
-            }
+            SetMovementState<StunMovementState>();
 
-            IsStunned = true;
+            RemainingInvincibilityFrames = StunInvincibilityFrames;
+            RemainingHitEffectFrames = StunFrames;
+
             Health -= damage;
 
             if (Health <= 0)

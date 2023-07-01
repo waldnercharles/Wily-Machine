@@ -16,7 +16,7 @@ public sealed class NotShootingState : ShootingState
 
         if (controller.ShouldShoot() && Player.CanShoot())
         {
-            Player.EnqueueShootingState<IsShootingState>();
+            Player.SetNextShootingState<IsShootingState>();
             return StateChange.Next;
         }
 

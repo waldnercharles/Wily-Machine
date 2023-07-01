@@ -4,18 +4,14 @@ namespace Spaghetti;
 
 public sealed class StunMovementState : MovementState
 {
-    private int m_StunFrameCounter = 0;
+    private int m_RemainingStunFrames;
 
     public StunMovementState(Player player) : base(player) { }
 
     public override void Enter(State? previousState)
     {
-        m_StunFrameCounter = 0;
-
+        m_RemainingStunFrames = Player.StunFrames;
         Player.IsStunned = true;
-        // Player.IsInvincible = true;
-
-        Player.RemainingInvincibilityFrames = Player.StunInvincibilityFrames;
 
         Player.IsAffectedByGravity = true;
         Player.StopShooting();
@@ -28,11 +24,13 @@ public sealed class StunMovementState : MovementState
         if (Player.IsSliding)
         {
             Player.StopSliding();
+            Player.IsSliding = false;
         }
 
         if (Player.IsClimbing)
         {
             velocity.X = 0;
+            Player.IsClimbing = false;
         }
 
         velocity.Y = velocity.Y * Player.GravityDirection <= 0 ? -1.5f * Player.GravityDirection : 0f;
@@ -50,10 +48,19 @@ public sealed class StunMovementState : MovementState
 
     public override StateChange Update(float delta)
     {
-        m_StunFrameCounter++;
+        m_RemainingStunFrames--;
 
-        if (m_StunFrameCounter > Player.StunFrames)
+        if (m_RemainingStunFrames <= 0)
         {
+            if (Player.IsOnFloor())
+            {
+                Player.SetNextMovementState<WalkMovementState>();
+            }
+            else
+            {
+                Player.SetNextMovementState<JumpMovementState>();
+            }
+
             return StateChange.Next;
         }
 

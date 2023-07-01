@@ -67,7 +67,7 @@ public sealed class JumpMovementState : MovementState
             Player.IsOnFloorTimestamp = 0;
             Player.IsFalling = false;
 
-            Player.EnqueueMovementState<JumpMovementState>(); // Exit and re-enter
+            Player.SetNextMovementState<JumpMovementState>(); // Exit and re-enter
 
             return StateChange.Next;
         }
@@ -77,11 +77,11 @@ public sealed class JumpMovementState : MovementState
             if (controller.ShouldMoveLeft() || controller.ShouldMoveRight())
             {
                 Player.IsFullAcceleration = true;
-                Player.EnqueueMovementState<WalkMovementState>();
+                Player.SetNextMovementState<WalkMovementState>();
             }
             else
             {
-                Player.EnqueueMovementState<IdleMovementState>();
+                Player.SetNextMovementState<IdleMovementState>();
             }
 
             return StateChange.Next;

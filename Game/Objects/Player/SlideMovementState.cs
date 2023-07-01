@@ -32,10 +32,13 @@ public sealed class SlideMovementState : MovementState
         Player.ChooseSpriteAnimation();
     }
 
+    public override bool CanExit()
+    {
+        return !Player.IsInTunnel;
+    }
+
     public override void Exit()
     {
-        Log.Assert(!Player.IsInTunnel, "Player is in tunnel");
-
         Player.UprightCollisionShape.Disabled = false;
         Player.SlideCollisionShape.Disabled = true;
 
@@ -77,7 +80,7 @@ public sealed class SlideMovementState : MovementState
             if (!Player.IsInTunnel && controller.ShouldJump() && Player.CanJump() &&
                 !controller.ShouldSlide())
             {
-                Player.EnqueueMovementState<JumpMovementState>();
+                Player.SetNextMovementState<JumpMovementState>();
                 return StateChange.Next;
             }
         }
@@ -86,18 +89,18 @@ public sealed class SlideMovementState : MovementState
             if (controller.ShouldMoveLeft() ^ controller.ShouldMoveRight())
             {
                 Player.IsFullAcceleration = true;
-                Player.EnqueueMovementState<WalkMovementState>();
+                Player.SetNextMovementState<WalkMovementState>();
                 return StateChange.Next;
             }
 
             if (!Player.IsOnFloor())
             {
-                Player.EnqueueMovementState<JumpMovementState>();
+                Player.SetNextMovementState<JumpMovementState>();
                 return StateChange.Next;
             }
 
             Player.IsDecelerating = true;
-            Player.EnqueueMovementState<IdleMovementState>();
+            Player.SetNextMovementState<IdleMovementState>();
             return StateChange.Next;
         }
 

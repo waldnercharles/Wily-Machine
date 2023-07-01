@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://catgpvh3c60xp" path="res://Objects/Hitbox.tscn" id="3_7k2by"]
 [ext_resource type="PackedScene" uid="uid://bjdd8r41iw58v" path="res://Objects/Hurtbox.tscn" id="4_i5l86"]
 
-[node name="Enemy" node_paths=PackedStringArray("CurrentCollisionShape") instance=ExtResource("1_5p3kx")]
+[node name="Enemy" instance=ExtResource("1_5p3kx")]
 collision_layer = 4
+collision_mask = 1
 script = ExtResource("1_tn4av")
 Health = 1
-CurrentCollisionShape = NodePath("")
 Faction = 2
 DeathType = 1
 IsAffectedByGravity = true

@@ -77,6 +77,12 @@ public partial class Actor : CharacterBody2D, IFactionComponent
         }
     }
 
+    public override void _Ready()
+    {
+        // MaxSlides = 4;
+        // Log.Trace(MaxSlides.ToString());
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         var velocity = Velocity;
@@ -102,20 +108,7 @@ public partial class Actor : CharacterBody2D, IFactionComponent
 
         Velocity = velocity;
 
-        if (MoveAndSlide())
-        {
-            var collisionCount = GetSlideCollisionCount();
-
-            for (var i = 0; i < collisionCount; i++)
-            {
-                var collision = GetSlideCollision(i);
-
-                if (collision.GetCollider() is IActorCollisionHandler collisionHandler)
-                {
-                    collisionHandler.OnCollision(this);
-                }
-            }
-        }
+        MoveAndSlide();
 
         base._PhysicsProcess(delta);
     }

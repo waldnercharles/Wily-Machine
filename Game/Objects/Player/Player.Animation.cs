@@ -52,7 +52,7 @@ public sealed partial class Player
 
     public void ChooseEffectAnimation()
     {
-        if (IsStunned)
+        if (RemainingHitEffectFrames > 0)
         {
             ChangeEffectAnimation(PlayerEffectAnimation.Stun);
         }

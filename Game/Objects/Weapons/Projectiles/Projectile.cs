@@ -1,19 +1,24 @@
+using System;
 using Godot;
+using Spaghetti.Pooling;
 
 namespace Spaghetti;
 
 [SceneTree]
-public partial class Projectile : CharacterBody2D, IFactionComponent
+public partial class Projectile : Node2D, IPoolable<Projectile>, IFactionComponent
 {
+    public event Action<Projectile>? Released;
+
     public Sprite2D Sprite => _.Sprite;
-    public CollisionShape2D CollisionShape => _.CollisionShape;
     public VisibleOnScreenNotifier2D VisibleOnScreenNotifier => _.VisibleOnScreenNotifier;
 
     public Vector2 Direction { get; set; }
 
-    public bool IsConsumed { get; protected set; }
+    public bool IsConsumed { get; set; }
 
     [Export] public Faction Faction { get; set; }
+
+    public virtual void Initialize() { }
 
     public override void _Ready()
     {
@@ -25,14 +30,14 @@ public partial class Projectile : CharacterBody2D, IFactionComponent
         IsConsumed = true;
     }
 
-    public new virtual void QueueFree()
+    public virtual void Release()
     {
         IsConsumed = true;
-        base.QueueFree();
+        Released?.Invoke(this);
     }
 
     private void ScreenExited()
     {
-        QueueFree();
+        Release();
     }
 }

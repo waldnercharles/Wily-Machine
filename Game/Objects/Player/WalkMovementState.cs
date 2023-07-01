@@ -35,7 +35,7 @@ public sealed class WalkMovementState : MovementState
         if (!isWalking)
         {
             Player.IsDecelerating = true;
-            Player.EnqueueMovementState<IdleMovementState>();
+            Player.SetNextMovementState<IdleMovementState>();
             return StateChange.Next;
         }
 
@@ -75,13 +75,13 @@ public sealed class WalkMovementState : MovementState
 
         if (controller.ShouldSlide() && Player.CanSlide())
         {
-            Player.EnqueueMovementState<SlideMovementState>();
+            Player.SetNextMovementState<SlideMovementState>();
             return StateChange.Next;
         }
 
         if (controller.ShouldJump() && !controller.ShouldSlide() && Player.CanJump() || !Player.IsOnFloor())
         {
-            Player.EnqueueMovementState<JumpMovementState>();
+            Player.SetNextMovementState<JumpMovementState>();
             return StateChange.Next;
         }
 

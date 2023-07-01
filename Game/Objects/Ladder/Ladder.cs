@@ -75,7 +75,7 @@ public partial class Ladder : StaticBody2D
     {
         foreach (var player in m_Players)
         {
-            if (player.IsClimbing)
+            if (player.IsClimbing || player.IsStunned)
             {
                 continue;
             }
