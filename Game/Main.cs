@@ -33,7 +33,7 @@ public partial class Main : Node
         SubViewport.HandleInputLocally = false;
 
         SubViewport.CanvasItemDefaultTextureFilter = Godot.Viewport.DefaultCanvasItemTextureFilter.Nearest;
-        AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), true);
+        // AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), true);
 
         SubViewport.AudioListenerEnable2D = true;
 

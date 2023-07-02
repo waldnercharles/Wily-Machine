@@ -16,7 +16,7 @@ public sealed class JumpMovementState : MovementState
         {
             Jump(previousState is ClimbMovementState);
         }
-        else if (!Player.IsOnFloor())
+        else if (!Player.IsOnFloor)
         {
             Player.IsFalling = true;
         }
@@ -72,7 +72,7 @@ public sealed class JumpMovementState : MovementState
             return StateChange.Next;
         }
 
-        if (Player.IsOnFloor())
+        if (Player.IsOnFloor)
         {
             if (controller.ShouldMoveLeft() || controller.ShouldMoveRight())
             {

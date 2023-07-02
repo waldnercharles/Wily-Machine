@@ -36,6 +36,9 @@ public partial class Actor : CharacterBody2D, IFactionComponent
 
     public bool IsDead { get; set; }
 
+    public new bool IsOnFloor { get; private set; }
+    public bool WasOnFloor { get; private set; }
+
     [Export] public bool IsAffectedByGravity { get; set; }
     [Export] public float Gravity { get; set; } = 0.25f * 60;
 
@@ -85,6 +88,11 @@ public partial class Actor : CharacterBody2D, IFactionComponent
 
     public override void _PhysicsProcess(double delta)
     {
+        base._PhysicsProcess(delta);
+
+        WasOnFloor = IsOnFloor;
+        IsOnFloor = base.IsOnFloor();
+
         var velocity = Velocity;
 
         if (IsAffectedByGravity)
@@ -109,8 +117,6 @@ public partial class Actor : CharacterBody2D, IFactionComponent
         Velocity = velocity;
 
         MoveAndSlide();
-
-        base._PhysicsProcess(delta);
     }
 
     public virtual bool CanShoot() { return true; }

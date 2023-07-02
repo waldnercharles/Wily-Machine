@@ -52,7 +52,7 @@ public sealed class StunMovementState : MovementState
 
         if (m_RemainingStunFrames <= 0)
         {
-            if (Player.IsOnFloor())
+            if (Player.IsOnFloor)
             {
                 Player.SetNextMovementState<WalkMovementState>();
             }

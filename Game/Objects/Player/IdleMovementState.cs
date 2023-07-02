@@ -26,7 +26,7 @@ public sealed class IdleMovementState : MovementState
 
         var controller = Player.Controller;
 
-        if (!Player.IsOnFloor())
+        if (!Player.IsOnFloor)
         {
             Player.SetNextMovementState<JumpMovementState>();
             return StateChange.Next;

@@ -121,7 +121,7 @@ public sealed class ClimbMovementState : MovementState
             velocity.Y = Player.ClimbVelocity.Y;
             Player.Velocity = velocity;
 
-            if (Player.IsOnFloor() && distanceToLadderTop > 0)
+            if (Player.IsOnFloor && distanceToLadderTop > 0)
             {
                 Player.SetNextMovementState<IdleMovementState>();
                 return StateChange.Next;

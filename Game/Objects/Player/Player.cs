@@ -97,13 +97,15 @@ public sealed partial class Player : Actor
 
     public override void _PhysicsProcess(double delta)
     {
-        if (IsOnFloor())
-        {
-            if (IsAirborn && !IsStunned)
-            {
-                OnLanded();
-            }
+        base._PhysicsProcess(delta);
 
+        if (!WasOnFloor && IsOnFloor)
+        {
+            OnLanded();
+        }
+
+        if (IsOnFloor)
+        {
             IsOnFloorTimestamp = Time.GetTicksMsec();
         }
 
@@ -121,8 +123,6 @@ public sealed partial class Player : Actor
 
         m_MovementStateMachine.Update(delta);
         m_ShootingStateMachine.Update(delta);
-
-        base._PhysicsProcess(delta);
 
         foreach (var hitbox in Hurtbox.Hitboxes)
         {

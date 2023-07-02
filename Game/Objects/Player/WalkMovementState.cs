@@ -77,7 +77,7 @@ public sealed class WalkMovementState : MovementState
             return StateChange.Next;
         }
 
-        if (controller.ShouldJump() && !controller.ShouldSlide() && Player.CanJump() || !Player.IsOnFloor())
+        if (controller.ShouldJump() && !controller.ShouldSlide() && Player.CanJump() || !Player.IsOnFloor)
         {
             Player.SetNextMovementState<JumpMovementState>();
             return StateChange.Next;

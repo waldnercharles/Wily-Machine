@@ -57,14 +57,14 @@ public sealed class SlideMovementState : MovementState
 
     public override StateChange Update(float delta)
     {
-        Player.IsInTunnel = Player.IsOnFloor() && Player.TestUprightCollisionShape();
+        Player.IsInTunnel = Player.IsOnFloor && Player.TestUprightCollisionShape();
 
         var controller = Player.Controller;
 
         Player.RemainingSlideFrames--;
 
         if (Player.IsInTunnel ||
-            Player.RemainingSlideFrames > 0 && !Player.TestSlideCollisionShape() && Player.IsOnFloor())
+            Player.RemainingSlideFrames > 0 && !Player.TestSlideCollisionShape() && Player.IsOnFloor)
         {
             var velocity = Player.Velocity;
 
@@ -97,7 +97,7 @@ public sealed class SlideMovementState : MovementState
         }
         else
         {
-            if (Player.IsOnFloor())
+            if (Player.IsOnFloor)
             {
                 if (controller.ShouldMoveLeft() ^ controller.ShouldMoveRight())
                 {
