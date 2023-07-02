@@ -132,7 +132,7 @@ public sealed partial class Player : Actor
 
     public override bool CanShoot()
     {
-        return base.CanShoot() && !IsSliding;
+        return base.CanShoot() && (Weapon?.CanShoot() ?? false) && !IsSliding;
     }
 
     public override void Shoot()

@@ -53,6 +53,7 @@ public partial class Weapon : Node
 
     public bool CanShoot()
     {
+        // TODO: Keep track of these ourselves? Godot heap-allocates an array every time this is called.
         var nodes = GetTree().GetNodesInGroup(ProjectileGroup);
 
         var activeProjectilesCount = 0;
