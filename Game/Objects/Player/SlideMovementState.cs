@@ -4,10 +4,14 @@ namespace Spaghetti;
 
 public sealed class SlideMovementState : MovementState
 {
+    private Vector2? m_PreviousDirection;
+
     public SlideMovementState(Player player) : base(player) { }
 
     public override void Enter(State? previousState)
     {
+        m_PreviousDirection = null;
+
         Player.Controller.ResetSlideBuffer();
 
         Player.UprightCollisionShape.Disabled = true;
@@ -18,7 +22,7 @@ public sealed class SlideMovementState : MovementState
 
         Player.CurrentCollisionShape = Player.SlideCollisionShape;
 
-        Player.SlideFrameCounter = 0;
+        Player.RemainingSlideFrames = Player.SlideFrames;
 
         Player.IsWalking = false;
         Player.IsIdle = false;
@@ -53,32 +57,39 @@ public sealed class SlideMovementState : MovementState
 
     public override StateChange Update(float delta)
     {
-        Player.SlideFrameCounter++;
-
         Player.IsInTunnel = Player.IsOnFloor() && Player.TestUprightCollisionShape();
 
         var controller = Player.Controller;
 
-        if (Player.IsInTunnel || Player.SlideFrameCounter < Player.SlideFrames &&
-            !Player.TestSlideCollisionShape() && Player.IsOnFloor())
+        Player.RemainingSlideFrames--;
+
+        if (Player.IsInTunnel ||
+            Player.RemainingSlideFrames > 0 && !Player.TestSlideCollisionShape() && Player.IsOnFloor())
         {
             var velocity = Player.Velocity;
 
             if (controller.ShouldMoveLeft())
             {
+                m_PreviousDirection ??= Vector2.Left;
                 Player.Direction = Vector2.Left;
                 velocity.X = -Player.SlideVelocity.X;
             }
             else if (controller.ShouldMoveRight())
             {
+                m_PreviousDirection ??= Vector2.Right;
                 Player.Direction = Vector2.Right;
                 velocity.X = Player.SlideVelocity.X;
             }
 
+            if (!Player.IsInTunnel && Player.Direction != m_PreviousDirection)
+            {
+                Player.SetNextMovementState<WalkMovementState>();
+                return StateChange.Next;
+            }
+
             Player.Velocity = velocity;
 
-            if (!Player.IsInTunnel && controller.ShouldJump() && Player.CanJump() &&
-                !controller.ShouldSlide())
+            if (controller.ShouldJump() && Player.CanJump() && !controller.ShouldSlide())
             {
                 Player.SetNextMovementState<JumpMovementState>();
                 return StateChange.Next;
@@ -86,21 +97,20 @@ public sealed class SlideMovementState : MovementState
         }
         else
         {
-            if (controller.ShouldMoveLeft() ^ controller.ShouldMoveRight())
+            if (Player.IsOnFloor())
             {
-                Player.IsFullAcceleration = true;
-                Player.SetNextMovementState<WalkMovementState>();
+                if (controller.ShouldMoveLeft() ^ controller.ShouldMoveRight())
+                {
+                    Player.IsFullAcceleration = true;
+                    Player.SetNextMovementState<WalkMovementState>();
+                    return StateChange.Next;
+                }
+
+                Player.SetNextMovementState<IdleMovementState>();
                 return StateChange.Next;
             }
 
-            if (!Player.IsOnFloor())
-            {
-                Player.SetNextMovementState<JumpMovementState>();
-                return StateChange.Next;
-            }
-
-            Player.IsDecelerating = true;
-            Player.SetNextMovementState<IdleMovementState>();
+            Player.SetNextMovementState<JumpMovementState>();
             return StateChange.Next;
         }
 

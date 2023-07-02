@@ -15,7 +15,6 @@ public sealed class ClimbMovementState : MovementState
         Player.IsJumping = false;
         Player.IsFalling = false;
         Player.IsAirborn = false;
-        Player.IsDecelerating = false;
         Player.IsFullAcceleration = false;
         Player.IsIdle = false;
         Player.IsWalking = false;

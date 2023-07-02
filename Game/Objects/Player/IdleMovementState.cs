@@ -22,7 +22,6 @@ public sealed class IdleMovementState : MovementState
 
     public override StateChange Update(float delta)
     {
-        Player.IsDecelerating = false;
         Player.ChooseSpriteAnimation();
 
         var controller = Player.Controller;

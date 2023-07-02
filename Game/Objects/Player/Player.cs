@@ -26,7 +26,6 @@ public sealed partial class Player : Actor
 
     public bool IsIdle;
     public bool IsWalking;
-    public bool IsDecelerating;
     public bool IsSliding;
     public bool IsInTunnel;
     public bool IsJumping;
@@ -52,7 +51,7 @@ public sealed partial class Player : Actor
 
     [Export] public int TipToeFrames = 7;
     [Export] public int SlideFrames = 26;
-    public int SlideFrameCounter;
+    public int RemainingSlideFrames;
 
     [Export] public int StunFrames = 32;
     [Export] public int StunInvincibilityFrames = 122;
@@ -153,7 +152,7 @@ public sealed partial class Player : Actor
 
     public void StopSliding()
     {
-        SlideFrameCounter = SlideFrames;
+        RemainingSlideFrames = 0;
     }
 
     public bool CanJump()

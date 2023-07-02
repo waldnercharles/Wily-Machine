@@ -6,7 +6,7 @@ public sealed class WalkMovementState : MovementState
 {
     private int m_TipToeFrameCounter = 0;
 
-    private Vector2 m_LastDirection;
+    private Vector2 m_PreviousDirection;
     public WalkMovementState(Player player) : base(player) { }
 
     public override void Enter(State? previousState)
@@ -14,9 +14,8 @@ public sealed class WalkMovementState : MovementState
         Player.IsWalking = true;
         Player.IsAirborn = false;
         Player.IsIdle = false;
-        Player.IsDecelerating = false;
 
-        m_LastDirection = Vector2.Zero;
+        m_PreviousDirection = Vector2.Zero;
         m_TipToeFrameCounter = 0;
     }
 
@@ -28,13 +27,12 @@ public sealed class WalkMovementState : MovementState
     public override StateChange Update(float delta)
     {
         var controller = Player.Controller;
-        m_LastDirection = Player.Direction;
+        m_PreviousDirection = Player.Direction;
 
         var isWalking = controller.ShouldMoveLeft() ^ controller.ShouldMoveRight();
 
         if (!isWalking)
         {
-            Player.IsDecelerating = true;
             Player.SetNextMovementState<IdleMovementState>();
             return StateChange.Next;
         }
@@ -48,7 +46,7 @@ public sealed class WalkMovementState : MovementState
             Player.Direction = Vector2.Right;
         }
 
-        if (Player.Direction != m_LastDirection)
+        if (Player.Direction != m_PreviousDirection)
         {
             Player.IsFullAcceleration = false;
             m_TipToeFrameCounter = 0;
