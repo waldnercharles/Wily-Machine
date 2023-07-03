@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace Spaghetti.Pooling;
+namespace WilyMachine.Pooling;
 
 public static class ObjectPools
 {

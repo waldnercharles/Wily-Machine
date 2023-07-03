@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 public static class VariantExt
 {

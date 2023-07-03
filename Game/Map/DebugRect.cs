@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 [Tool]
 public partial class DebugRect : ReferenceRect

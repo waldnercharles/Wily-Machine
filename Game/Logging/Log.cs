@@ -9,7 +9,7 @@ using Godot;
 using JetBrains.Annotations;
 using Environment = System.Environment;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 public static class Log
 {

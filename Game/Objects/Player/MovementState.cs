@@ -1,4 +1,4 @@
-﻿namespace Spaghetti;
+﻿namespace WilyMachine;
 
 public abstract class MovementState : State
 {

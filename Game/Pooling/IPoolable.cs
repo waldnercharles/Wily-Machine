@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Spaghetti.Pooling;
+namespace WilyMachine.Pooling;
 
 public interface IPoolable<out T> where T : IPoolable<T>
 {

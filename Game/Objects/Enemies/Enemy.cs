@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 [SceneTree]
 public partial class Enemy : Actor

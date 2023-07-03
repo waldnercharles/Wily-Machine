@@ -1,4 +1,4 @@
-﻿namespace Spaghetti;
+﻿namespace WilyMachine;
 
 public sealed partial class Player
 {

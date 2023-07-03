@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 [SceneTree]
 public partial class BusterProjectile : Projectile

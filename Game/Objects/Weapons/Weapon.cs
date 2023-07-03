@@ -1,7 +1,7 @@
 using Godot;
-using Spaghetti.Pooling;
+using WilyMachine.Pooling;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 public partial class Weapon : Node
 {

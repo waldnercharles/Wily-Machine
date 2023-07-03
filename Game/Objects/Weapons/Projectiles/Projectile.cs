@@ -1,8 +1,8 @@
 using System;
 using Godot;
-using Spaghetti.Pooling;
+using WilyMachine.Pooling;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 [SceneTree]
 public partial class Projectile : Node2D, IPoolable<Projectile>, IFactionComponent

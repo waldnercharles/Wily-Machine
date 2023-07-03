@@ -1,4 +1,4 @@
-﻿namespace Spaghetti;
+﻿namespace WilyMachine;
 
 public static class PlayerAnimation
 {

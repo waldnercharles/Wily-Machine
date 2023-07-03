@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 public partial class DeviceInput : Node
 {

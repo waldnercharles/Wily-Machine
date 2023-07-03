@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 [SceneTree]
 public partial class Level : Node2D

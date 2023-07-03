@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace WilyMachine;
 
 public partial class FPSLabel : Label
 {

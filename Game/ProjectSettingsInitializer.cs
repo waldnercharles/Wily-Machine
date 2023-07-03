@@ -1,7 +1,7 @@
 using Godot;
 using Godot.Collections;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 public static class ProjectSettingsPath
 {
@@ -13,10 +13,12 @@ public partial class ProjectSettingsInitializer : Node
 {
     public override void _Ready()
     {
-        AddProjectSetting(ProjectSettingsPath.InitialScene, "res://Map/Level.tscn", Variant.Type.String, PropertyHint.File);
+        AddProjectSetting(ProjectSettingsPath.InitialScene, "res://Map/Level.tscn", Variant.Type.String,
+            PropertyHint.File);
     }
 
-    private static void AddProjectSetting(string path, Variant value, Variant.Type type, PropertyHint hint = PropertyHint.None, string hintString = "")
+    private static void AddProjectSetting(string path, Variant value, Variant.Type type,
+        PropertyHint hint = PropertyHint.None, string hintString = "")
     {
         if (ProjectSettings.HasSetting(path))
         {

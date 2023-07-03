@@ -1,7 +1,7 @@
 using Godot;
-using Spaghetti.Messaging;
+using WilyMachine.Messaging;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 [SceneTree]
 public partial class PlayerCamera : Camera2D

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Spaghetti.Messaging;
+namespace WilyMachine.Messaging;
 
 public readonly struct Subscription : IDisposable
 {

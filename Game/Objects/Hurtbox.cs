@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 [SceneTree]
 public partial class Hurtbox : Area2D, IFactionComponent

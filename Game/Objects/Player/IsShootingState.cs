@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 public sealed class IsShootingState : ShootingState
 {

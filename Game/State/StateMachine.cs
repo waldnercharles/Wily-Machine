@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 public class StateMachine
 {

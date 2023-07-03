@@ -2,7 +2,7 @@
 using System.Linq;
 using Godot;
 
-namespace Spaghetti;
+namespace WilyMachine;
 
 [SceneTree]
 public partial class MM1Met : Enemy
