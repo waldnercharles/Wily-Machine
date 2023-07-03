@@ -8,4 +8,4 @@ I'm a huge fan of the [Megamix Engine](https://github.com/MegamixEngine/MegamixE
 Check out the [Trello Board](https://trello.com/b/czD3Ene7/%F0%9F%A4%96-wily-machine)
 
 ## License
-[GPL 3](https://github.com/waldnercharles/Spaghetti.Godot/blob/main/LICENSE) *(Excluding Capcom assets)*
+[GPL 3](https://github.com/waldnercharles/Wily-Machine/blob/main/LICENSE) *(Excluding Capcom assets)*
