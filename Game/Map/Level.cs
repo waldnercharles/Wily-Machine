@@ -9,8 +9,8 @@ public partial class Level : Node2D
 {
     public PlayerCamera Camera => _.Camera;
 
-    [Export] public PackedScene Spike { get; set; } = null!;
-    [Export] public PackedScene Ladder { get; set; } = null!;
+    [Export] public PackedScene Spike = null!;
+    [Export] public PackedScene Ladder = null!;
 
     public override void _Ready()
     {

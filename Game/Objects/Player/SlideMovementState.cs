@@ -32,7 +32,18 @@ public sealed class SlideMovementState : MovementState
 
         Player.StopShooting();
 
-        // TODO: Sliding Particles
+        var slideDust = Player.Dust?.Instantiate<Effect>();
+
+        if (slideDust != null)
+        {
+            Player.GetParent().AddChild(slideDust);
+            var slideBoundingBox = Player.SlideCollisionShape.Shape.GetRect();
+            slideDust.Position =
+                Player.Position +
+                new Vector2(slideBoundingBox.Position.X - 2, slideBoundingBox.End.Y + 2) *
+                new Vector2(Player.Sprite.FlipH ? -1 : 1, Player.Sprite.FlipV ? -1 : 1);
+        }
+
         Player.ChooseSpriteAnimation();
     }
 

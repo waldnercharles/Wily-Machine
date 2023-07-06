@@ -1,8 +1,10 @@
-[gd_scene load_steps=42 format=3 uid="uid://cuqvu38wfu6p6"]
+[gd_scene load_steps=44 format=3 uid="uid://cuqvu38wfu6p6"]
 
 [ext_resource type="PackedScene" uid="uid://dsm2bfb47hd47" path="res://Objects/Core/Actor.tscn" id="1_lw3h8"]
 [ext_resource type="Script" path="res://Objects/Player/Player.cs" id="2_8vivm"]
+[ext_resource type="PackedScene" uid="uid://dpfynjiwwsy43" path="res://Objects/Effects/Dust/Dust.tscn" id="3_3g7v1"]
 [ext_resource type="Script" path="res://Objects/Player/PlayerInputController.cs" id="3_y34qb"]
+[ext_resource type="PackedScene" uid="uid://io2ld2xo1n2y" path="res://Objects/Effects/Sweat/Sweat.tscn" id="4_6nmdu"]
 [ext_resource type="Texture2D" uid="uid://c8ghbfter3oal" path="res://Objects/Player/Sprites/Idle.png" id="4_d47nj"]
 [ext_resource type="Texture2D" uid="uid://i0edvqckmsnj" path="res://Objects/Player/Sprites/Climb.png" id="5_ntjnc"]
 [ext_resource type="Texture2D" uid="uid://dg0fv4rhpg0uy" path="res://Objects/Player/Sprites/IdleShoot.png" id="6_6lgji"]
@@ -988,6 +990,8 @@ safe_margin = 0.001
 script = ExtResource("2_8vivm")
 Health = 28
 Weapon = NodePath("Weapons/Buster")
+Dust = ExtResource("3_3g7v1")
+Sweat = ExtResource("4_6nmdu")
 SlideDownOneTileGapsNextToWall = false
 JumpBufferFrames = 6
 TipToeFrames = 7

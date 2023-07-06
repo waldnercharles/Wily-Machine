@@ -20,8 +20,11 @@ public sealed partial class Player : Actor
     public AudioStreamPlayer2D LandSoundEffect => _.LandSoundEffect;
     public AudioStreamPlayer2D HitSoundEffect => _.HitSoundEffect;
 
-    [Export] public int Health = 1;
+    [Export] public int Health = int.MaxValue;
     [Export] public Weapon? Weapon;
+
+    [Export] public PackedScene? Dust;
+    [Export] public PackedScene? Sweat;
 
     public Ladder? Ladder;
 
@@ -173,18 +176,20 @@ public sealed partial class Player : Actor
     {
         if (IsVulnerable)
         {
-            HitSoundEffect.Play();
-
-            SetMovementState<StunMovementState>();
-
-            RemainingInvincibilityFrames = StunInvincibilityFrames;
-            RemainingHitEffectFrames = StunFrames;
-
             Health -= damage;
 
             if (Health <= 0)
             {
                 Kill();
+            }
+            else
+            {
+                HitSoundEffect.Play();
+
+                SetMovementState<StunMovementState>();
+
+                RemainingInvincibilityFrames = StunInvincibilityFrames;
+                RemainingHitEffectFrames = StunFrames;
             }
         }
     }
@@ -234,7 +239,11 @@ public sealed partial class Player : Actor
         UprightCollisionShape.Disabled = false;
         SlideCollisionShape.Disabled = true;
 
-        collision = MoveAndCollide(offset, true, SafeMargin);
+        UprightCollisionShape.Position += offset;
+
+        collision = MoveAndCollide(Vector2.Zero, true, SafeMargin);
+
+        UprightCollisionShape.Position -= offset;
 
         UprightCollisionShape.Disabled = uprightDisabled;
         SlideCollisionShape.Disabled = slideDisabled;
@@ -255,7 +264,11 @@ public sealed partial class Player : Actor
         UprightCollisionShape.Disabled = true;
         SlideCollisionShape.Disabled = false;
 
-        collision = MoveAndCollide(offset, true, SafeMargin);
+        SlideCollisionShape.Position += offset;
+
+        collision = MoveAndCollide(Vector2.Zero, true, SafeMargin);
+
+        SlideCollisionShape.Position -= offset;
 
         UprightCollisionShape.Disabled = uprightDisabled;
         SlideCollisionShape.Disabled = slideDisabled;

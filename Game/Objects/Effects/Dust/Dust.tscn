@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpfynjiwwsy43"]
+
+[ext_resource type="PackedScene" uid="uid://cleoan5g85f0u" path="res://Objects/Effects/Effect.tscn" id="1_waqdm"]
+[ext_resource type="Texture2D" uid="uid://cso67vv2if5qc" path="res://Assets/Sprites/sprSlideDust.png" id="2_cdirj"]
+
+[sub_resource type="Animation" id="Animation_v2tro"]
+resource_name = "Dust"
+length = 0.24
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iguux"]
+_data = {
+"Dust": SubResource("Animation_v2tro")
+}
+
+[node name="Dust" instance=ExtResource("1_waqdm")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_cdirj")
+hframes = 3
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "Dust"
+libraries = {
+"": SubResource("AnimationLibrary_iguux")
+}
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="2"]
+rect = Rect2(-4, -4, 8, 8)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="queue_free" flags=7 unbinds=1]

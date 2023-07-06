@@ -17,7 +17,6 @@ public sealed class StunMovementState : MovementState
         Player.StopShooting();
         Player.ChooseSpriteAnimation();
 
-
         var velocity = Player.Velocity;
         velocity.X = Player.KnockbackVelocity.X * Player.Direction.X;
 
@@ -37,7 +36,9 @@ public sealed class StunMovementState : MovementState
 
         Player.Velocity = velocity;
 
-        // TODO: Emit signal
+        SpawnSweat(new Vector2(-11, -17));
+        SpawnSweat(new Vector2(0, -17));
+        SpawnSweat(new Vector2(11, -17));
     }
 
     public override void Exit()
@@ -65,5 +66,16 @@ public sealed class StunMovementState : MovementState
         }
 
         return StateChange.None;
+    }
+
+    private void SpawnSweat(Vector2 offset)
+    {
+        var sweat = Player.Sweat?.Instantiate<Effect>();
+
+        if (sweat != null)
+        {
+            Player.GetParent().AddChild(sweat);
+            sweat.Position = Player.Position + offset;
+        }
     }
 }

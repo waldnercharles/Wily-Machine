@@ -38,8 +38,6 @@ public partial class Enemy : Actor
         {
             Die();
         }
-
-        // TODO: Blink?
     }
 
     public void Die()
