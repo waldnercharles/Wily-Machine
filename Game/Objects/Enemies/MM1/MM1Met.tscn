@@ -16,7 +16,7 @@ size = Vector2(18, 11)
 radius = 64.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ro327"]
-size = Vector2(18, 11)
+size = Vector2(15, 11)
 
 [node name="MM1Met" node_paths=PackedStringArray("CurrentCollisionShape") instance=ExtResource("1_r6b0q")]
 floor_constant_speed = true
@@ -42,7 +42,11 @@ position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_q1cse")
 debug_color = Color(0, 1, 0, 0.25)
 
-[node name="DetectionArea" type="Area2D" parent="." index="6"]
+[node name="VisibleOnScreenEnabler2D" parent="." index="6"]
+position = Vector2(0, -8)
+rect = Rect2(-9, 4.5, 18, 11)
+
+[node name="DetectionArea" type="Area2D" parent="." index="7"]
 visible = false
 collision_layer = 0
 collision_mask = 2
@@ -52,11 +56,10 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
 shape = SubResource("CircleShape2D_leqnb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="7"]
-visible = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_ro327")
 
-[node name="Weapon" type="Node" parent="." index="8"]
+[node name="Weapon" type="Node" parent="." index="9"]
 script = ExtResource("4_ucq04")
 Projectile = ExtResource("5_pm5mi")

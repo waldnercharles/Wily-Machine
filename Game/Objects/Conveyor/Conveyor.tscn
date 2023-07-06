@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cf5v6gsws644s"]
+
+[ext_resource type="Script" path="res://Objects/Conveyor/Conveyor.cs" id="1_nf012"]
+[ext_resource type="PackedScene" uid="uid://dei5mvm8un8d2" path="res://Objects/Core/ConstantForce.tscn" id="3_2cip5"]
+[ext_resource type="Texture2D" uid="uid://dj0x5l5m5ph4q" path="res://Assets/Sprites/sprSolarManConveyor.png" id="3_xtr8x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nyfs5"]
+resource_local_to_scene = true
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5rh3"]
+resource_local_to_scene = true
+size = Vector2(14, 17)
+
+[node name="Conveyor" type="StaticBody2D" groups=["Conveyor"]]
+collision_mask = 6
+script = ExtResource("1_nf012")
+Texture = ExtResource("3_xtr8x")
+Enabled = true
+ConveyorSpeed = Vector2(60, 0)
+FramesPerSecond = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nyfs5")
+
+[node name="Force" parent="." instance=ExtResource("3_2cip5")]
+position = Vector2(0, -0.5)
+Velocity = Vector2(60, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Force"]
+shape = SubResource("RectangleShape2D_m5rh3")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+rect = Rect2(-8, -8, 16, 16)
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["ConveyorPart"]]
+texture = ExtResource("3_xtr8x")
+hframes = 3
+region_enabled = true
+region_rect = Rect2(288, 0, 48, 16)

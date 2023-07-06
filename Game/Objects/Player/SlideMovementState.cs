@@ -57,24 +57,37 @@ public sealed class SlideMovementState : MovementState
 
     public override StateChange Update(float delta)
     {
-        Player.IsInTunnel = Player.IsOnFloor && Player.TestUprightCollisionShape();
-
-        var controller = Player.Controller;
-
         Player.RemainingSlideFrames--;
 
+        var ceilingCollisionTestOffset = Player.UpDirection;
+
+        if (Player.SlideDownOneTileGapsNextToWall && Player.IsOnWall())
+        {
+            var depth = Global.TileSize -
+                        ((Player.UprightCollisionShape.Shape as RectangleShape2D)?.Size.Y ?? Global.TileSize);
+
+            ceilingCollisionTestOffset = new Vector2(0, depth) * Player.UpDirection;
+        }
+
+        var collidingWithCeiling = Player.TryGetUprightCollision(ceilingCollisionTestOffset, out _);
+
+        Player.IsInTunnel = Player.IsOnFloor && collidingWithCeiling;
+
         if (Player.IsInTunnel ||
-            Player.RemainingSlideFrames > 0 && !Player.TestSlideCollisionShape() && Player.IsOnFloor)
+            Player.RemainingSlideFrames > 0 && Player.IsOnFloor &&
+            !(Player.TryGetSlideCollision(Player.SlideVelocity * delta * Player.Direction.X, out var collision) &&
+              !collision.IsFloorCollision(Player.UpDirection, Player.FloorMaxAngle)))
+
         {
             var velocity = Player.Velocity;
 
-            if (controller.ShouldMoveLeft())
+            if (Player.Controller.ShouldMoveLeft())
             {
                 m_PreviousDirection ??= Vector2.Left;
                 Player.Direction = Vector2.Left;
                 velocity.X = -Player.SlideVelocity.X;
             }
-            else if (controller.ShouldMoveRight())
+            else if (Player.Controller.ShouldMoveRight())
             {
                 m_PreviousDirection ??= Vector2.Right;
                 Player.Direction = Vector2.Right;
@@ -83,13 +96,14 @@ public sealed class SlideMovementState : MovementState
 
             if (!Player.IsInTunnel && Player.Direction != m_PreviousDirection)
             {
+                Log.Trace("Hit");
                 Player.SetNextMovementState<WalkMovementState>();
                 return StateChange.Next;
             }
 
             Player.Velocity = velocity;
 
-            if (controller.ShouldJump() && Player.CanJump() && !controller.ShouldSlide())
+            if (Player.Controller.ShouldJump() && Player.CanJump() && !Player.Controller.ShouldSlide())
             {
                 Player.SetNextMovementState<JumpMovementState>();
                 return StateChange.Next;
@@ -99,7 +113,7 @@ public sealed class SlideMovementState : MovementState
         {
             if (Player.IsOnFloor)
             {
-                if (controller.ShouldMoveLeft() ^ controller.ShouldMoveRight())
+                if (Player.Controller.ShouldMoveLeft() ^ Player.Controller.ShouldMoveRight())
                 {
                     Player.IsFullAcceleration = true;
                     Player.SetNextMovementState<WalkMovementState>();

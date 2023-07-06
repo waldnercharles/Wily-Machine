@@ -1,6 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace WilyMachine;
+
+public static class HashSet
+{
+    private static class EmptyHashSet<T>
+    {
+#pragma warning disable CA1825 // this is the implementation of Array.Empty<T>()
+        internal static readonly HashSet<T> Value = new HashSet<T>();
+#pragma warning restore CA1825
+    }
+
+    public static HashSet<T> Empty<T>() => EmptyHashSet<T>.Value;
+}
 
 [SceneTree]
 public partial class Actor : CharacterBody2D, IFactionComponent
@@ -52,6 +67,8 @@ public partial class Actor : CharacterBody2D, IFactionComponent
     public bool IsUsingPalette { get; set; }
     public int PaletteIndex { get; set; }
 
+    private HashSet<ConstantForce>? m_Forces;
+
     private Vector2 m_Direction = Vector2.Right;
 
     [Export] public Vector2 Direction
@@ -80,29 +97,27 @@ public partial class Actor : CharacterBody2D, IFactionComponent
         }
     }
 
-    public override void _Ready()
-    {
-        // MaxSlides = 4;
-        // Log.Trace(MaxSlides.ToString());
-    }
-
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
 
-        WasOnFloor = IsOnFloor;
-        IsOnFloor = base.IsOnFloor();
+        var actorVelocity = Velocity;
 
-        var velocity = Velocity;
-
-        if (IsAffectedByGravity)
+        if (IsAffectedByGravity && !IsOnFloor)
         {
-            velocity.Y += Gravity * GravityDirection;
+            actorVelocity.Y += Gravity * GravityDirection;
             // TODO: Underwater?
         }
 
-        velocity.X = Mathf.Clamp(velocity.X, MIN_X_VELOCITY, MAX_X_VELOCITY);
-        velocity.Y = Mathf.Clamp(velocity.Y, MIN_Y_VELOCITY, MAX_Y_VELOCITY);
+        var constantLinearVelocity = Vector2.Zero;
+
+        foreach (var force in m_Forces ?? Enumerable.Empty<ConstantForce>())
+        {
+            if (force.Enabled)
+            {
+                constantLinearVelocity += force.Velocity;
+            }
+        }
 
         if (!IsAgeless)
         {
@@ -114,13 +129,32 @@ public partial class Actor : CharacterBody2D, IFactionComponent
             }
         }
 
-        Velocity = velocity;
+        constantLinearVelocity.X = Mathf.Clamp(constantLinearVelocity.X, MIN_X_VELOCITY, MAX_X_VELOCITY);
+        constantLinearVelocity.Y = Mathf.Clamp(constantLinearVelocity.Y, MIN_Y_VELOCITY, MAX_Y_VELOCITY);
+        MoveAndCollide(constantLinearVelocity * (float)delta);
 
+        actorVelocity.X = Mathf.Clamp(actorVelocity.X, MIN_X_VELOCITY, MAX_X_VELOCITY);
+        actorVelocity.Y = Mathf.Clamp(actorVelocity.Y, MIN_Y_VELOCITY, MAX_Y_VELOCITY);
+        Velocity = actorVelocity;
         MoveAndSlide();
+
+        WasOnFloor = IsOnFloor;
+        IsOnFloor = base.IsOnFloor();
     }
 
     public virtual bool CanShoot() { return true; }
     public virtual void Shoot() { }
+
+    public void AddConstanstForce(ConstantForce force)
+    {
+        m_Forces ??= new HashSet<ConstantForce>();
+        m_Forces.Add(force);
+    }
+
+    public void RemoveConstantForce(ConstantForce force)
+    {
+        m_Forces?.Remove(force);
+    }
 
     public void ChangeSpriteAnimation(string animationName)
     {

@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://dsm2bfb47hd47"]
 
-[ext_resource type="Script" path="res://Objects/Actor.cs" id="1_hu7bq"]
-[ext_resource type="PackedScene" uid="uid://dlmi60sbfx7hf" path="res://Objects/Effects/Explosion.tscn" id="2_i6ahr"]
+[ext_resource type="Script" path="res://Objects/Core/Actor.cs" id="1_3q5i2"]
+[ext_resource type="PackedScene" uid="uid://dlmi60sbfx7hf" path="res://Objects/Effects/Explosion.tscn" id="2_1wfq3"]
 
 [node name="Actor" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_hu7bq")
-Explosion = ExtResource("2_i6ahr")
+script = ExtResource("1_3q5i2")
+Explosion = ExtResource("2_1wfq3")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 

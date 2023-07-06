@@ -35,22 +35,7 @@ public partial class Room : TileMap
         }
     }
 
-    private bool m_Active;
-
-    public bool Active
-    {
-        get => m_Active;
-        set
-        {
-            m_Active = value;
-
-            if (!Engine.IsEditorHint())
-            {
-                Visible = value;
-                ProcessMode = value ? ProcessModeEnum.Inherit : ProcessModeEnum.Disabled;
-            }
-        }
-    }
+    public bool Active;
 
     public int LimitLeft => (int)(CollisionShape.Shape.GetRect().Position.X + Area.GlobalPosition.X);
     public int LimitRight => (int)(CollisionShape.Shape.GetRect().End.X + Area.GlobalPosition.X);
@@ -83,7 +68,6 @@ public partial class Room : TileMap
         base._Ready();
 
         Area.BodyEntered += BodyEntered;
-        ProcessMode = ProcessModeEnum.Disabled;
     }
 
     public override void _Notification(int what)

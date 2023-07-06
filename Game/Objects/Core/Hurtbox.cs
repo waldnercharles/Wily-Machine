@@ -13,7 +13,6 @@ public partial class Hurtbox : Area2D, IFactionComponent
     public Faction Faction => Owner is IFactionComponent factionComponent ? factionComponent.Faction : Faction.Neutral;
 
     private HashSet<Hitbox>? m_Hitboxes;
-
     public IReadOnlyCollection<Hitbox> Hitboxes => (IReadOnlyCollection<Hitbox>?)m_Hitboxes ?? Array.Empty<Hitbox>();
 
     public override void _Ready()

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dei5mvm8un8d2"]
+
+[ext_resource type="Script" path="res://Objects/Core/ConstantForce.cs" id="1_2w4wq"]
+
+[node name="Area2D" type="Area2D"]
+collision_mask = 6
+monitorable = false
+script = ExtResource("1_2w4wq")

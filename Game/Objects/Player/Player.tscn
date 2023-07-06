@@ -1,6 +1,6 @@
 [gd_scene load_steps=42 format=3 uid="uid://cuqvu38wfu6p6"]
 
-[ext_resource type="PackedScene" uid="uid://dsm2bfb47hd47" path="res://Objects/Actor.tscn" id="1_lw3h8"]
+[ext_resource type="PackedScene" uid="uid://dsm2bfb47hd47" path="res://Objects/Core/Actor.tscn" id="1_lw3h8"]
 [ext_resource type="Script" path="res://Objects/Player/Player.cs" id="2_8vivm"]
 [ext_resource type="Script" path="res://Objects/Player/PlayerInputController.cs" id="3_y34qb"]
 [ext_resource type="Texture2D" uid="uid://c8ghbfter3oal" path="res://Objects/Player/Sprites/Idle.png" id="4_d47nj"]
@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cp5p85ks88xcx" path="res://Objects/Weapons/Projectiles/BusterProjectile.tscn" id="15_f344t"]
 [ext_resource type="AudioStream" uid="uid://b2kn0gxwmdihq" path="res://Objects/Player/Sounds/Land.wav" id="16_bbxfa"]
 [ext_resource type="AudioStream" uid="uid://cil8bd4kbo282" path="res://Objects/Player/Sounds/GetHit.wav" id="17_cawsu"]
-[ext_resource type="PackedScene" uid="uid://bjdd8r41iw58v" path="res://Objects/Hurtbox.tscn" id="18_g14g1"]
+[ext_resource type="PackedScene" uid="uid://bjdd8r41iw58v" path="res://Objects/Core/Hurtbox.tscn" id="18_g14g1"]
 
 [sub_resource type="Animation" id="Animation_boga3"]
 resource_name = "ClimbExit"
@@ -983,9 +983,12 @@ collision_layer = 2
 collision_mask = 65
 floor_constant_speed = true
 floor_snap_length = 4.0
+platform_on_leave = 2
+safe_margin = 0.001
 script = ExtResource("2_8vivm")
 Health = 28
 Weapon = NodePath("Weapons/Buster")
+SlideDownOneTileGapsNextToWall = false
 JumpBufferFrames = 6
 TipToeFrames = 7
 SlideFrames = 26

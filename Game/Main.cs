@@ -4,6 +4,8 @@ namespace WilyMachine;
 
 public static class Global
 {
+    public static int TileSize = 16;
+
     public static Vector2I Resolution { get; set; } = new Vector2I(1280, 720);
     public static Vector2I InternalResolution => new Vector2I(400, 240);
 }
@@ -33,7 +35,7 @@ public partial class Main : Node
         SubViewport.HandleInputLocally = false;
 
         SubViewport.CanvasItemDefaultTextureFilter = Godot.Viewport.DefaultCanvasItemTextureFilter.Nearest;
-        // AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), true);
+        AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), true);
 
         SubViewport.AudioListenerEnable2D = true;
 

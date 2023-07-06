@@ -14,6 +14,11 @@ public partial class Level : Node2D
 
     public override void _Ready()
     {
+        if (Engine.IsEditorHint())
+        {
+            return;
+        }
+
         CallDeferred(nameof(AddSpikes));
         CallDeferred(nameof(AddLadders));
     }

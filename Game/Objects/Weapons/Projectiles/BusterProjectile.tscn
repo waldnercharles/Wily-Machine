@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Objects/Weapons/Projectiles/BusterProjectile.cs" id="2_qw6a4"]
 [ext_resource type="Texture2D" uid="uid://crj0esi7lf36g" path="res://Objects/Weapons/Sprites/MegaBusterProjectile.png" id="3_j34ue"]
 [ext_resource type="AudioStream" uid="uid://bvh0ejaykaq4n" path="res://Objects/Weapons/Sounds/MegaBuster.wav" id="4_g2gfc"]
-[ext_resource type="PackedScene" uid="uid://catgpvh3c60xp" path="res://Objects/Hitbox.tscn" id="5_v3ajj"]
+[ext_resource type="PackedScene" uid="uid://catgpvh3c60xp" path="res://Objects/Core/Hitbox.tscn" id="5_v3ajj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hakax"]
 radius = 4.0

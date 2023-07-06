@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Godot;
 using WilyMachine.Messaging;
 
@@ -45,6 +46,8 @@ public sealed partial class Player : Actor
     public bool IsStunned;
 
     public bool IsVulnerable => !IsInvincible;
+
+    [Export] public bool SlideDownOneTileGapsNextToWall = false;
 
     [Export] public int JumpBufferFrames = 6;
     public ulong IsOnFloorTimestamp;
@@ -147,7 +150,8 @@ public sealed partial class Player : Actor
 
     public bool CanSlide()
     {
-        return !IsAirborn && !IsStunned && !TestSlideCollisionShape();
+        return !IsAirborn && !IsStunned &&
+               !(TryGetSlideCollision(out var collision) && !collision.IsFloorCollision(UpDirection, FloorMaxAngle));
     }
 
     public void StopSliding()
@@ -217,7 +221,12 @@ public sealed partial class Player : Actor
         Sprite.FlipH = !Sprite.FlipH;
     }
 
-    public bool TestUprightCollisionShape()
+    public bool TryGetUprightCollision([NotNullWhen(true)] out KinematicCollision2D? collision)
+    {
+        return TryGetUprightCollision(Vector2.Zero, out collision);
+    }
+
+    public bool TryGetUprightCollision(Vector2 offset, [NotNullWhen(true)] out KinematicCollision2D? collision)
     {
         var uprightDisabled = UprightCollisionShape.Disabled;
         var slideDisabled = SlideCollisionShape.Disabled;
@@ -225,7 +234,7 @@ public sealed partial class Player : Actor
         UprightCollisionShape.Disabled = false;
         SlideCollisionShape.Disabled = true;
 
-        var collision = MoveAndCollide(Vector2.Zero, true);
+        collision = MoveAndCollide(offset, true, SafeMargin);
 
         UprightCollisionShape.Disabled = uprightDisabled;
         SlideCollisionShape.Disabled = slideDisabled;
@@ -233,7 +242,12 @@ public sealed partial class Player : Actor
         return collision != null;
     }
 
-    public bool TestSlideCollisionShape()
+    public bool TryGetSlideCollision([NotNullWhen(true)] out KinematicCollision2D? collision)
+    {
+        return TryGetSlideCollision(Vector2.Zero, out collision);
+    }
+
+    public bool TryGetSlideCollision(Vector2 offset, [NotNullWhen(true)] out KinematicCollision2D? collision)
     {
         var uprightDisabled = UprightCollisionShape.Disabled;
         var slideDisabled = SlideCollisionShape.Disabled;
@@ -241,19 +255,11 @@ public sealed partial class Player : Actor
         UprightCollisionShape.Disabled = true;
         SlideCollisionShape.Disabled = false;
 
-        var collision = MoveAndCollide(SlideVelocity / 60.0f * Direction.X, true);
+        collision = MoveAndCollide(offset, true, SafeMargin);
 
         UprightCollisionShape.Disabled = uprightDisabled;
         SlideCollisionShape.Disabled = slideDisabled;
 
-        if (collision != null)
-        {
-            var normal = collision.GetNormal();
-            var angle = collision.GetAngle();
-
-            return Mathf.Sign(normal.Y) != Mathf.Sign(UpDirection.Y) || angle > FloorMaxAngle;
-        }
-
-        return false;
+        return collision != null;
     }
 }

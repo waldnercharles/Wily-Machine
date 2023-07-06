@@ -124,7 +124,9 @@ public partial class PlayerCamera : Camera2D
         if (!Player.IsDead)
         {
             var playerSize =
-                Player.CurrentCollisionShape?.Shape.GetRect().Size ?? Vector2.Zero;
+                transitionDirection.X != 0
+                    ? Player.SlideCollisionShape.Shape.GetRect().Size
+                    : Player.UprightCollisionShape.Shape.GetRect().Size;
 
             var playerMovement = transitionDirection.X != 0
                 ? new Vector2(transitionPosition - Player.GlobalPosition.X + playerSize.X * transitionDirection.X, 0)
